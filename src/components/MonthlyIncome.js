@@ -4,16 +4,14 @@ import PayCheckForm from "./PayCheckForm";
 import IncomeStream from "./IncomeStream";
 
 function MonthlyIncome() {
-  const [incomes, setincomes] = useState([ 
+  const [incomes, setincomes] = useState([ {paycheck: 'Webassign', amount: 500},{paycheck: 'Investment', amount: 100}
   ]);
  
   const handleFormSubmit = (paycheck, amount) => {
-    // console.log("A paychecktype and amount was added: ", paycheck, amount);
     setincomes([...incomes, { paycheck, amount: Number(amount) }]);
   };
 
   const finalTotal = () => { 
-    const totalIncome = 0;
   return incomes.reduce((totalIncome, currentIncome) =>     
     totalIncome + currentIncome.amount, // reducer function
     0 // initial accumulator value

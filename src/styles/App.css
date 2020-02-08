@@ -87,6 +87,9 @@ input {
     position: relative;
 }
 
+.budgetGroup {
+    background-color: white;
+}
 .budget {
     position: absolute;
     width: 350px;
