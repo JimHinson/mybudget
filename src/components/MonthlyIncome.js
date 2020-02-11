@@ -20,7 +20,6 @@ function MonthlyIncome() {
   } 
 
   const handleIncomeDelete = (index) => {
-    console.log("index was added: ",index);
     const tempIncome = [...incomes];
     tempIncome.splice(index, 1);
     setincomes(tempIncome);

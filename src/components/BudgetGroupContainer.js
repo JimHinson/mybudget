@@ -1,107 +1,115 @@
-import React, { useState, useEffect } from "react";
-import "../styles/monthly.css";
-import PayCheckForm from "./PayCheckForm";
-import IncomeStream from "./IncomeStream";
-import AddBudgetItem from "./AddBudgetItem";
-import BudgetItemList from "./BudgetItemList"
-import BudgetGroup from "./BudgetGroup";
+import React, { useState, useEffect } from 'react'
+import '../styles/monthly.css'
+import BudgetGroup from './BudgetGroup'
+import AddNewGroup from './AddNewGroup'
 
 function BudgetGroupContainer() {
-  const [budgetGroupValue, setBudgetGroupValue] = useState([{ title: "Food", totolAmount: 300,  items: [{ name: 'item1', amount: 40 }, { name: 'item2', amount: 10 }] }]);
-  const [isAddClicked, setisAddClicked] = useState(false)
-  const divStyle = {
-    margin: '10px',
-    border: '5px solid pink'
-  };
-  const liStyle = {
-    fontSize: '15px',
-    textAlign: 'center'
-  };
+  const [budgetGroupValue, setBudgetGroupValue] = useState([
+    {
+      title: 'Food',
+      totolAmount: 300,
+      items: [
+        { name: 'item1', amount: 40 },
+        { name: 'item2', amount: 10 },
+      ],
+    },
+  ])
 
-  const containerStyle = {
-      listStyleType: 'none',
-      border: '2px solid black',
-      // backgroundColor: '#333'
-  }
   const BudgetGroupContainer = {
     listStyleType: 'none',
-    border: '5px solid red',
+    border: '1px solid black',
+    marginBotton: '20px'
     // backgroundColor: '#333'
-}
+  }
 
-const addButtonStyle = {
-    backGroundColor: '#4CAF50', /* Green */
+  const addButtonStyle = {
+    backgroundColor: '#4CAF50' /* Green */,
     border: 'none',
-    color: 'white',
     padding: '15px 32px',
     textAlign: 'center',
     textDecoration: 'none',
     display: 'inline-block',
     fontSize: '16px',
-    color:'black'
+    color: 'black',
+  }
 
-}
+  const handleFormSubmit = (name, amount, index) => {
+    setBudgetGroupValue(prevBudgetGroupValue => {
+      return [
+        ...prevBudgetGroupValue.slice(0, index),
+        {
+          ...prevBudgetGroupValue[index],
+          items: [
+            ...prevBudgetGroupValue[index].items,
+            { name, amount: Number(amount) },
+          ],
+        },
+        ...prevBudgetGroupValue.slice(index + 1),
+      ]
+    })
+  }
 
-  const handleFormSubmit = (name, amount) => {
-     console.log('mname', name, 'amiunt', amount)
-     var index = 0
-     console.log('its the final', budgetGroupTotal())
-     setBudgetGroupValue(prevBudgetGroupValue => {
-      return [ ...prevBudgetGroupValue.slice(0, index), {...prevBudgetGroupValue[index], items: [...prevBudgetGroupValue[index].items, {name, amount: Number(amount)}] }, ...prevBudgetGroupValue.slice(index+1)];
-    });
-    console.log('things changed',budgetGroupValue)
-    //  setBudgetGroupValue([...budgetGroupValue[0].items, {name, amount: Number(amount) }]);
-  };
+  const handleDelete = (groupIndex, itemIndex) => {
+    console.log(groupIndex, 'Im in bgc and I see index', itemIndex)
+    const temp = [...budgetGroupValue];
 
-  const budgetGroupTotal = () => { 
-    var currentItems = budgetGroupValue[0].items
-    return currentItems.reduce((totalIncome, currentIncome) =>     
-      totalIncome + currentIncome.amount, // reducer function
-      0 // initial accumulator value
-    );
+    // removing the element using splice
+    temp.splice(itemIndex, 1);
+
+    // updating the list
+    setBudgetGroupValue(temp, ...budgetGroupValue)
+  
+    
+    // setBudgetGroupValue(prevBudgetGroupValue => {
+    //   return [
+    //     // console.log( 'This is the prev valiue',prevBudgetGroupValue)
+    //     ...budgetGroupValue[groupIndex].items.splice(itemIndex, 1),
+    //     // console.log( 'This is the prev valiue',prevBudgetGroupValue)
+
+    //     // {
+    //     //   ...prevBudgetGroupValue[groupIndex],
+    //     //   items: [
+    //     //     ...prevBudgetGroupValue[groupIndex].items
+    //     //   ],
+    //     // },
+    //     // ...prevBudgetGroupValue.splice(index + 1),
+    //   ]
+    // })
+    // const name = 'item2'
+    //     setBudgetGroupValue(budgetGroupValue => budgetGroupValue.filter(item => item.name !== name))
+    // console.log( 'This is the prev valiue',budgetGroupValue[groupIndex].items)
+
   }
 
 
-  const getTotalFromGroup = (index) => {
-    console.log(index, 'trying to delete', Array.isArray(budgetGroupValue[0].items),  budgetGroupValue[0].items)
-    // setBudgetGroupValue(
-      // budgetGroupValue[0].items.filter(item => item.name != 'item2')
-      // budgetGroupValue[0].items.splice(0, 1)
-      // budgetGroupValue[0].items.filter((x,i) =>  x.name != "item2") 
-      // setBudgetGroupValue([...budgetGroupValue[0].items])
-      // );
-  };
-
   useEffect(() => {
-    console.log(budgetGroupValue)
-    return () => {
-    };
+    return () => {}
   }, [budgetGroupValue])
 
-  const addGroup = () => {
-   setisAddClicked(true)
-  };
+
+  const addGroupName = (name) => {
+    setBudgetGroupValue([...budgetGroupValue, {
+      title: name,
+      totolAmount: 0,
+      items: [],
+    }])
+  }
 
   return (
     <div style={BudgetGroupContainer}>
-
-    {console.log('is clicked', typeof budgetGroupValue)}
-    {/* {isAddClicked && <BudgetGroup/> } */}
-
-    {/* <button style={addButtonStyle} onClick={addGroup}>Button</button> */}
-    {budgetGroupValue.map((budgetObject, index) => (
-<BudgetGroup
-key={index}
-budgetData={budgetObject}
-budgetTotal={budgetGroupTotal()}
-index={index}
-handleSubmit={handleFormSubmit}
-/>
-    ))}
-
+      {budgetGroupValue.map((budgetObject, index) => (
+        <BudgetGroup
+          key={index}
+          budgetData={budgetObject}
+          // budgetTotal={budgetGroupTotal()}
+          index={index}
+          handleSubmit={handleFormSubmit}
+          handleDelete={handleDelete}
+        />
+      ))}
+      <AddNewGroup style={addButtonStyle} handleSubmit={addGroupName} />
     </div>
-  );
+  )
 }
 
-
-export default BudgetGroupContainer;
+export default BudgetGroupContainer
