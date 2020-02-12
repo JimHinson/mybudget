@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import '../styles/monthly.css'
+import '../styles/App.css'
 import BudgetGroup from './BudgetGroup'
 import AddNewGroup from './AddNewGroup'
 
@@ -20,17 +21,6 @@ function BudgetGroupContainer() {
     border: '1px solid black',
     marginBotton: '20px'
     // backgroundColor: '#333'
-  }
-
-  const addButtonStyle = {
-    backgroundColor: '#4CAF50' /* Green */,
-    border: 'none',
-    padding: '15px 32px',
-    textAlign: 'center',
-    textDecoration: 'none',
-    display: 'inline-block',
-    fontSize: '16px',
-    color: 'black',
   }
 
   const handleFormSubmit = (name, amount, index) => {
@@ -89,7 +79,7 @@ function BudgetGroupContainer() {
           handleDelete={handleItemDelete}
         />
       ))}
-      <AddNewGroup style={addButtonStyle} handleSubmit={addGroupName} />
+      <AddNewGroup className="myBtn" handleSubmit={addGroupName} />
     </div>
   )
 }

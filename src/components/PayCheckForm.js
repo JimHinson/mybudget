@@ -26,12 +26,15 @@ function PayCheckForm(props) {
     cursor: 'pointer'
   } 
 
+
+
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
         id="paycheck"
-        className="input"
+        className="payInputText"
+        size="15"
         value={paycheck}
         onChange={e => setpaycheck(e.target.value)}
         placeholder="pay source"
@@ -40,7 +43,9 @@ function PayCheckForm(props) {
       <input
         type="number"
         id="paycheckAmount"
-        className="input"
+        className="payInputNumber"
+        size="6"
+        maxLength='6'
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="paycheckAmount"

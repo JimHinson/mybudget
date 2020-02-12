@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../styles/monthly.css";
+import "../styles/App.css"
 
 function AddBudgetItem(props) {
   const [budgetItem, setbudgetItem] = useState("");
@@ -12,19 +13,7 @@ function AddBudgetItem(props) {
     props.handleSubmit(budgetItem, amount)
   } 
   
-  const button = {
-    backgroundColor: '#4CAF50',
-    border: 'none',
-    borderRadius: '15px',
-    color: 'white',
-    padding: '5px 10px',
-    textAlign: 'center',
-    textDecoration: 'none',
-    display: 'inline-block',
-    fontSize: '16px',
-    margin: '4px 2px',
-    cursor: 'pointer'
-  } 
+
 
   return (
     <form onSubmit={handleSubmit} className="formBody">
@@ -45,7 +34,7 @@ function AddBudgetItem(props) {
         onChange={e => setamount(e.target.value)}
         placeholder="amount"
       />
-      <button style={button} type="submit">Submit</button>
+      <button className="myBtn" type="submit">Submit</button>
     </form>
   );
 }
