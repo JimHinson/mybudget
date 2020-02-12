@@ -12,6 +12,7 @@ const cHeader = { color: '#111', fontFamily: 'Helvetica Neue',  fontSize:' 25px'
     margin: '10px',
     border: '5px solid pink',
   }
+
   const liStyle = {
     fontSize: '15px',
     textAlign: 'center',
@@ -30,7 +31,7 @@ const cHeader = { color: '#111', fontFamily: 'Helvetica Neue',  fontSize:' 25px'
   }
 
   const budgetGroupTotal = (index) => {
-    // console.log(index, 'its index')
+    console.log(index, 'its index', props.budgetData)
     var currentItems = props.budgetData.items
     return currentItems.reduce(
       (totalIncome, currentIncome) => totalIncome + currentIncome.amount, // reducer function
@@ -83,7 +84,7 @@ const cHeader = { color: '#111', fontFamily: 'Helvetica Neue',  fontSize:' 25px'
               </ul>
             </li>
           </ul>
-          <AddBudgetItem handleSubmit={handleFormSubmit} />
+          <AddBudgetItem handleSubmit={handleFormSubmit}/>
         </div>
       </div>
     </div>

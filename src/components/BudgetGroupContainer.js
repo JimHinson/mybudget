@@ -49,36 +49,18 @@ function BudgetGroupContainer() {
     })
   }
 
-  const handleDelete = (groupIndex, itemIndex) => {
-    console.log(groupIndex, 'Im in bgc and I see index', itemIndex)
-    const temp = [...budgetGroupValue];
+  const handleItemDelete = (groupIndex, itemIndex) => {
+    console.log(groupIndex, budgetGroupValue[groupIndex].items, 'Im in bgc and I see index', itemIndex)
+    // setBudgetGroupValue(budgetGroupValue.splice(budgetGroupValue[groupIndex].items, 1));
 
-    // removing the element using splice
-    temp.splice(itemIndex, 1);
-
-    // updating the list
-    setBudgetGroupValue(temp, ...budgetGroupValue)
-  
+    setBudgetGroupValue(prevBudgetGroupValue => {
+      return [
+        ...prevBudgetGroupValue[groupIndex].items.splice(itemIndex, 1),
+        ...prevBudgetGroupValue
+      ]
+    })
+    console.log('its temp here with ', budgetGroupValue)
     
-    // setBudgetGroupValue(prevBudgetGroupValue => {
-    //   return [
-    //     // console.log( 'This is the prev valiue',prevBudgetGroupValue)
-    //     ...budgetGroupValue[groupIndex].items.splice(itemIndex, 1),
-    //     // console.log( 'This is the prev valiue',prevBudgetGroupValue)
-
-    //     // {
-    //     //   ...prevBudgetGroupValue[groupIndex],
-    //     //   items: [
-    //     //     ...prevBudgetGroupValue[groupIndex].items
-    //     //   ],
-    //     // },
-    //     // ...prevBudgetGroupValue.splice(index + 1),
-    //   ]
-    // })
-    // const name = 'item2'
-    //     setBudgetGroupValue(budgetGroupValue => budgetGroupValue.filter(item => item.name !== name))
-    // console.log( 'This is the prev valiue',budgetGroupValue[groupIndex].items)
-
   }
 
 
@@ -104,7 +86,7 @@ function BudgetGroupContainer() {
           // budgetTotal={budgetGroupTotal()}
           index={index}
           handleSubmit={handleFormSubmit}
-          handleDelete={handleDelete}
+          handleDelete={handleItemDelete}
         />
       ))}
       <AddNewGroup style={addButtonStyle} handleSubmit={addGroupName} />

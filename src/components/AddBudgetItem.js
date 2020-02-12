@@ -12,8 +12,22 @@ function AddBudgetItem(props) {
     props.handleSubmit(budgetItem, amount)
   } 
   
+  const button = {
+    backgroundColor: '#4CAF50',
+    border: 'none',
+    borderRadius: '15px',
+    color: 'white',
+    padding: '5px 10px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    display: 'inline-block',
+    fontSize: '16px',
+    margin: '4px 2px',
+    cursor: 'pointer'
+  } 
+
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="formBody">
       <input
         type="text"
         id="budgetItem"
@@ -24,14 +38,14 @@ function AddBudgetItem(props) {
       />
 
       <input
-        type="text"
+        type="number"
         id="amount"
         className="input"
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="amount"
       />
-      <button type="submit">Submit</button>
+      <button style={button} type="submit">Submit</button>
     </form>
   );
 }

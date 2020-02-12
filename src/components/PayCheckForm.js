@@ -12,6 +12,20 @@ function PayCheckForm(props) {
     props.handleSubmit(paycheck, amount)
   } 
   
+  const button = {
+    backgroundColor: '#28B9B5',
+    border: 'none',
+    borderRadius: '15px',
+    color: 'white',
+    padding: '5px 10px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    display: 'inline-block',
+    fontSize: '16px',
+    margin: '4px 2px',
+    cursor: 'pointer'
+  } 
+
   return (
     <form onSubmit={handleSubmit}>
       <input
@@ -24,14 +38,14 @@ function PayCheckForm(props) {
       />
 
       <input
-        type="text"
+        type="number"
         id="paycheckAmount"
         className="input"
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="paycheckAmount"
       />
-      <button type="submit">Submit</button>
+      <button type="submit" style={button}>Submit</button>
     </form>
   );
 }

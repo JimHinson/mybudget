@@ -8,6 +8,20 @@ function AddNewGroup(props) {
     event.preventDefault(); 
     props.handleSubmit(name)
   } 
+
+  const button = {
+    backgroundColor: '#4CAF50',
+    border: 'none',
+    borderRadius: '15px',
+    color: 'white',
+    padding: '5px 10px',
+    textAlign: 'center',
+    textDecoration: 'none',
+    display: 'inline-block',
+    fontSize: '16px',
+    margin: '4px 2px',
+    cursor: 'pointer'
+  } 
   
   return (
     <form onSubmit={handleSubmit}>
@@ -19,7 +33,7 @@ function AddNewGroup(props) {
         onChange={e => setname(e.target.value)}
         placeholder="Group Name"
       />
-      <button type="submit">Add New Group</button>
+      <button type="submit" style={button}>Add New Group</button>
     </form>
   );
 }
