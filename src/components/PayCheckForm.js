@@ -7,7 +7,7 @@ function PayCheckForm(props) {
 
   const handleSubmit = (event)=> { 
     event.preventDefault(); 
-    setamount(0)
+    setamount("")
     setpaycheck("")
     props.handleSubmit(paycheck, amount)
   } 
@@ -41,11 +41,9 @@ function PayCheckForm(props) {
       />
 
       <input
-        type="number"
+        type="text"
         id="paycheckAmount"
         className="payInputNumber"
-        size="6"
-        maxLength='6'
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="paycheckAmount"

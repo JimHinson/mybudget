@@ -6,8 +6,6 @@ function BudgetItemList(props) {
   const handleDelete = ()=> {
   props.deleteItem(props.index)
  } 
-
-//   console.log("seeing ", props.name, props.amount, props.index);
   return (
     <div className="budget__income clearfix">
       <div className="budget__income--text">{props.name}</div>

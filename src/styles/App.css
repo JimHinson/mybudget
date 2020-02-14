@@ -7,6 +7,17 @@
     pointer-events: none;
 }
 
+.flex-grid {
+    display: flex;
+    justify-content: space-between;
+  }
+  .flex-grid .col {
+    width: 32%;
+  }
+  .flex-grid .major {
+    width: 62%;
+  }
+
 .myBtn {
     background-color: #4CAF50;
     border: none;

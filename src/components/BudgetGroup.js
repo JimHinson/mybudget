@@ -21,7 +21,6 @@ const cHeader = { color: '#111', fontFamily: 'Helvetica Neue',  fontSize:' 25px'
   const containerStyle = {
     listStyleType: 'none',
     border: '2px solid black',
-    width: '80%',
     marginBotton: '20px'
     // backgroundColor: '#333'
   }
@@ -31,7 +30,7 @@ const cHeader = { color: '#111', fontFamily: 'Helvetica Neue',  fontSize:' 25px'
   }
 
   const budgetGroupTotal = (index) => {
-    console.log(index, 'its index', props.budgetData)
+   
     var currentItems = props.budgetData.items
     return currentItems.reduce(
       (totalIncome, currentIncome) => totalIncome + currentIncome.amount, // reducer function
@@ -40,22 +39,14 @@ const cHeader = { color: '#111', fontFamily: 'Helvetica Neue',  fontSize:' 25px'
   }
 
   const handleItemDelete = (index) => {
-    // console.log(index, 'trying to delete', Array.isArray(budgetGroupValue[0].items),  budgetGroupValue[0].items)
-  console.log(props.index, 'its index', index)
-  props.handleDelete(props.index, index)
-
-    // setBudgetGroupValue(
-    // budgetGroupValue[0].items.filter(item => item.name != 'item2')
-    // budgetGroupValue[0].items.splice(0, 1)
-    // budgetGroupValue[0].items.filter((x,i) =>  x.name != "item2")
-    // setBudgetGroupValue([...budgetGroupValue[0].items])
-    // );
+    console.log(props.index, 'delete this item from the group in budget group ', index)
+  props.handleDeleteItem(props.index, index)
   }
 
-  // const handleSubmit = (name, amount) => {
-  //  props.handleSubmit(name, amount)
 
-  // };
+  const handleGroupDelete = (index) => {
+    console.log('groud index in budgetgroup container', index)
+  }
 
 
   return (
@@ -70,7 +61,10 @@ const cHeader = { color: '#111', fontFamily: 'Helvetica Neue',  fontSize:' 25px'
             <li>
               <h1 style={cHeader}> {props.budgetData.title} ${budgetGroupTotal()} </h1>
               <ul style={divStyle}>
+              
                 {Object.keys(props.budgetData.items).map((name, index) => (
+                 
+                 
                   <li style={liStyle} key={name}>
                     <BudgetItemList
                       key={name}

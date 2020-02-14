@@ -7,7 +7,8 @@ function AddNewGroup(props) {
 
   const handleSubmit = (event)=> { 
     event.preventDefault(); 
-    props.handleSubmit(name)
+    props.handleGroupSubmit(name)
+    setname('')
   }
   
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/monthly.css";
 import PayCheckForm from "./PayCheckForm";
 import IncomeStream from "./IncomeStream";
