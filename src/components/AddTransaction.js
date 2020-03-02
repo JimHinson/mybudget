@@ -1,16 +1,15 @@
 import React, { useState, useEffect } from "react";
 import "../styles/monthly.css";
 
-function PayCheckForm(props) {
-  const [paycheck, setpaycheck] = useState("");
+function AddTransaction(props) {
+  const [name, setname] = useState("");
   const [amount, setamount] = useState(0);
-  const [textInput, settextInput] = useState(React.createRef()) 
-  
+ 
   const handleSubmit = (event)=> { 
-    event.preventDefault(); 
-    setamount("")
-    setpaycheck("")
-    props.handleSubmit(paycheck, amount)
+    // event.preventDefault(); 
+    // setamount("")
+    // setpaycheck("")
+    // props.handleSubmit(paycheck, amount)
   } 
   
   const button = {
@@ -27,32 +26,32 @@ function PayCheckForm(props) {
     cursor: 'pointer'
   } 
 
-  useEffect(() => {
-    textInput.current.focus()
-    return () => {
+  // useEffect(() => {
+  //   textInput.current.focus()
+  //   return () => {
       
-    };
-  }, [])
+  //   };
+  // }, [])
 
   return (
     <form onSubmit={handleSubmit}>
       <input
         type="text"
-        id="paycheck"
+        id="name"
         className="payInputText"
         size="15"
-        value={paycheck}
-        onChange={e => setpaycheck(e.target.value)}
-        placeholder="pay source"
+        value={name}
+        onChange={e => setname(e.target.value)}
+        placeholder="name"
       />
 
       <input
         type="text"
-        id="paycheckAmount"
+        id="amount"
         className="payInputNumber"
         value={amount}
         onChange={e => setamount(e.target.value)}
-        placeholder="paycheckAmount"
+        placeholder="amount"
         ref={textInput}
       />
       <button type="submit" style={button}>Submit</button>
@@ -61,4 +60,4 @@ function PayCheckForm(props) {
 }
 
 
-export default PayCheckForm;
+export default AddTransaction;
