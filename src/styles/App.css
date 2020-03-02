@@ -2,9 +2,78 @@
     text-align: center;
 }
 
+
+
+* {
+    box-sizing: border-box;
+  }
+  
+  hr {
+    border: none;
+    height: 1px;
+    /* Set the hr color */
+    color: #333; /* old IE */
+    background-color: #333; /* Modern Browsers */
+}
+  
+.down1{
+    margin-top: 20px;
+}
+
+  .flex-containerExpense {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .flex-itemExpense{
+    flex: 1 0 21%; /* explanation below */
+    margin: 5px;
+    height: 50px;
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    
+    /* background-color: blue; */
+  }
+  /* Container for flexboxes */
+  
+  /* Create three equal columns that sits next to each other */
+ .bold{
+     font-weight: bold;
+ }
+  
+  .flex-container {
+    display: flex;
+  }
+  
+  .flex-item {
+    font-weight: bold;
+    font-size: 2em;
+    text-align: center;
+    /* margin: 1em;
+    flex: 1 1 auto;
+    outline: 1px solid blue; */
+  }
+
+ .tcolumn {
+    flex: 1;
+    padding: 10px;
+    height: 300px; /* Should be removed. Only for demonstration */
+  }
+
 .App-logo {
     height: 40vmin;
     pointer-events: none;
+}
+
+.b2 {
+    margin-left: 220px;
+}
+.b3 {
+    margin-left: 320px;
+}
+.b4 {
+    margin-right: 110px;
+    margin-left: 180px;
 }
 
 .flex-grid {
@@ -17,19 +86,30 @@
   .flex-grid .major {
     width: 62%;
   }
-
+ .transactioncol {
+    width: 12%;
+    height: 50px
+  }
 .myBtn {
     background-color: #4CAF50;
     border: none;
     border-radius: 15px;
     color: white;
-    padding: 5px 10px;
+    /* padding: 5px 10px; */
     text-align: center;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     cursor: pointer;
+  } 
+.deleteItem {
+    width:20px;
+}
+
+  .deleteBtn {
+    background-color: rgb(171, 9, 9);
+
   } 
 
 @media (prefers-reduced-motion: no-preference) {
@@ -149,6 +229,11 @@ input {
 .budget__income {
     margin-bottom: 10px;
     background-color: #28B9B5;
+}
+
+.budget__income1 {
+    margin-bottom: 20px;
+   
 }
 
 .budget__expenses {

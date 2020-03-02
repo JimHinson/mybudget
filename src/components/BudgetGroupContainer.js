@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {} from 'react'
 import '../styles/monthly.css'
 import '../styles/App.css'
 import BudgetGroup from './BudgetGroup'
@@ -13,43 +13,52 @@ function BudgetGroupContainer(props) {
     // backgroundColor: '#333'
   }
 
+
   const handleFormSubmit = (name, amount, index) => {
     props.handleSubmit(name, amount, index)
   }
 
   const addGroupNameHandler = name => {
+    console.log(props)
     props.handleGroupSubmit(name)
   }
 
   const deleteItem = (groupIndex, index) => {
-    console.log(
-      groupIndex,
-      'ground index and indfex in budgetgroup container',
-      index,
-    )
+    // console.log(
+    //   groupIndex,
+    //   'ground index and indfex in budgetgroup container',
+    //   index,
+    // )
     props.handleDeleteItem(groupIndex, index)
   }
 
   const handleGroupDelete = index => {
-    console.log('groud index in budgetgroup container', index)
+    // console.log('groud index in budgetgroup container', index)
+    props.handleGroupDelete(index)
   }
 
+  const handleItemClick = (isShown, index, name, amount) => {
+    props.handleItemClick(isShown, index, name, amount)
+  }
   return (
     <div style={BudgetGroupContainer}>
       {props.budgetGroupValue.map((budgetObject, index) => (
-        <div>
+        <div key={index}>
           <div>
-                   </div>
+      <button  
+        index={index} onClick={(e) => handleGroupDelete(index)} className="myBtn deleteBtn" >Delete {budgetObject.title} Group</button>
+           
+           
 
-          <div>
-          <button index={index} onClick={handleGroupDelete}>Delete</button>
             <BudgetGroup
               key={index}
               budgetData={budgetObject}
-              // budgetTotal={budgetGroupTotal()}
               index={index}
               handleSubmit={handleFormSubmit}
               handleDeleteItem={deleteItem}
+              handleItemClick={handleItemClick}
+
+
             />
           </div>
         </div>
