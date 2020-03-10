@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import '../styles/App.css'
 import MonthlyIncome from './MonthlyIncome'
 import BudgetGroupContainer from './BudgetGroupContainer'
 import BudgetGroupList from './BudgetGroupList'
+import ItemTransactionList from './ItemTransactionList'
 
 
 function App() {
@@ -32,7 +33,7 @@ function App() {
         { id: 0, name: 'Groceries', amount: 300,  transactions: [
           {
             name: 'walmart',
-            amount: 100,
+            amount: 40,
           },
           {
             name: 'aldi',
@@ -53,7 +54,7 @@ function App() {
           }]
       
       },
-        { id: 1, name: 'snacks', amount: 10, transactions: [
+        { id: 2, name: 'snacks', amount: 10, transactions: [
           {
             name: 'Sheetz',
             amount: 200,
@@ -64,8 +65,12 @@ function App() {
   ])
   const [showTractionList, setshowTractionList] = useState(false)
   const [showBudgetGroupList, setshowBudgetGroupList] = useState(true)
-  const [transactionData, settransactionData] = useState(9)
+  const [rowClickData, setrowClickData] = useState()
+  const [transaction, settransaction] = useState([])
 
+  const transactionStyle ={
+    marginTop: "230px"
+  }
   const center = {
     margin: 'auto',
     textAlign: 'center',
@@ -101,6 +106,18 @@ function App() {
     setincomes([...incomes, { paycheck, amount: Number(amount) }])
   }
 
+  const handleTransactionSubmit = (name, amount) => {
+    console.log('I made it here', name, amount)
+    //does my category exist? 
+    //prefer to find by name
+    //does my expense exist? 
+    // add transaction to the expense
+    // send error if try to add a transaction to an expense that doesnt exist
+
+
+    // setBudgetGroupValue()
+  }
+
   const handleDeleteIncome = index => {
     const tempIncome = [...incomes]
     tempIncome.splice(index, 1)
@@ -114,20 +131,30 @@ function App() {
     )
   }
 
+
+
   // code for budget container
   const handleFormSubmit = (name, amount, index) => {
     setBudgetGroupValue(prevBudgetGroupValue => {
+      
       return [
         ...prevBudgetGroupValue.slice(0, index),
         {
           ...prevBudgetGroupValue[index],
           expenses: [
             ...prevBudgetGroupValue[index].expenses,
-            { name, amount: Number(amount) },
+            { name, amount: Number(amount) }
           ],
+         
+          // ...prevBudgetGroupValue[index].expenses,
+          // transactions: [
+          //   ...prevBudgetGroupValue[index].expenses,
+          //   { name: 'transaction 1', amount: 0 },
+          // ],
         },
         ...prevBudgetGroupValue.slice(index + 1),
       ]
+     
     })
   }
 
@@ -168,11 +195,17 @@ function App() {
 
 
   const toggleTractionList = (isShown, index, name, amount) => {
-    settransactionData(index)
+    // setrowClickData(prevState => {
+    //   return { ...prevState, isShown: isShown }
+    // });
+    // setrowClickData([])
+    setrowClickData({[isShown]: isShown, index: index });
+  // setrowClickData(previousValue => !previousValue);
+    // setrowClickData([isShown, index])
     
     setshowBudgetGroupList(false)
     setshowTractionList(true)
-    console.log(transactionData, 'name is herea with amiunt isShown',!isShown, 'Index', index, 'name', name, amount)
+    console.log(rowClickData, 'name is herea with amiunt isShown',isShown, 'Index', index, 'name', name, amount)
     // setshowBudgetGroupList(false)
     // setshowTractionList(true)
     
@@ -180,12 +213,19 @@ function App() {
 
   const transactionTotal = (index) => {
    
-    var currentexpenses = budgetGroupValue.expenses[index].transactions
+    var currentexpenses = budgetGroupValue[0].expenses[0].transactions
     return currentexpenses.reduce(
       (totalIncome, currentIncome) => totalIncome + currentIncome.amount, // reducer function
       0, // initial accumulator value
     )
   }
+
+  // useEffect(() => {
+  //   console.log('rowClickData is in useffect', rowClickData)
+  //   return () => {
+  //   };
+  // }, [rowClickData])
+
 
   return (
     <div className="App">
@@ -257,36 +297,11 @@ function App() {
 
 
 {showTractionList && ( 
-        <div className="col transctioncol" style={cardStyle}>
-          <div className="budget__income1 clearfix">
-            <hr />
-            <div className="budget__income--value bold">Transactions</div>
-            <div className="right">
-              <div className="budget__income--value bold">Amount</div>
-              <div className="budget__income--percentage">&nbsp;</div>
-            </div>
-          </div>
-          <hr />
-          <div  >
-          
-              <div >
-              {console.log('I can see it here', budgetGroupValue)}
-              {budgetGroupValue[0].expenses[1].transactions.map((budgetInfo, index) => (
-                  <div className="budget__income1 clearfix" key={budgetInfo.name}>
-                  <hr />
-                  <div className="budget__income--value">{budgetInfo.name}</div>
-                  <div className="right">
-                    <div className="budget__income--value">{budgetInfo.amount}</div>
-                    <div className="budget__income--percentage">&nbsp;</div>
-                  </div>
-                </div>
-                ))}
-                {/* <div>Total:  {transactionTotal(index)} </div> */}
-              </div>
-         
+  <div style={transactionStyle}>
 
-          </div>
-        </div>
+    <ItemTransactionList budgetGroupValue={budgetGroupValue} rowValue={rowClickData} handleTransactionSubmit={handleTransactionSubmit} />
+  </div>
+
            )}
 
        

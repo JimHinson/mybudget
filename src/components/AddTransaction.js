@@ -6,10 +6,13 @@ function AddTransaction(props) {
   const [amount, setamount] = useState(0);
  
   const handleSubmit = (event)=> { 
-    // event.preventDefault(); 
+    event.preventDefault(); 
+    props.handleTransactionSubmit(name, amount)
+
     // setamount("")
-    // setpaycheck("")
-    // props.handleSubmit(paycheck, amount)
+    // setname("")
+    // props.handleSubmit(name, amount)
+    // props.handleTransactionSubmit(name, amount)
   } 
   
   const button = {
@@ -38,7 +41,7 @@ function AddTransaction(props) {
       <input
         type="text"
         id="name"
-        className="payInputText"
+        className="InputText"
         size="15"
         value={name}
         onChange={e => setname(e.target.value)}
@@ -48,11 +51,11 @@ function AddTransaction(props) {
       <input
         type="text"
         id="amount"
-        className="payInputNumber"
+        className="InputNumber"
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="amount"
-        ref={textInput}
+      
       />
       <button type="submit" style={button}>Submit</button>
     </form>

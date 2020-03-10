@@ -39,6 +39,7 @@ height:'3px',
   }
 
   const budgetGroupTotal = (index) => {
+    if(!props.budgetData.expenses) return;
   //  console.log('in budget group', props.budgetData.expenses)
     var currentexpenses = props.budgetData.expenses
     return currentexpenses.reduce(
@@ -90,7 +91,7 @@ height:'3px',
           </div>
           <hr style={hrStyle}/>
               
-
+    {console.log('in budgetgrouop seeing budgetdata', props.budgetData, props.index)}
                 {Object.keys(props.budgetData.expenses).map((name, index) => (
                  
                  
