@@ -21,15 +21,31 @@ function BudgetItemList(props) {
   //  }
 
 
-  const calc = (index) => {
-  
-    return getTotal();
+  const plannedMinusRemaining = (index) => {
+    
+    // if(!props.index) return props.budgetData.expenses[0].amount; 
+    // console.log('This is the total from budgeitemlist', getTransactionTotal())
+    // console.log('this is from budgetitems list props', props.budgetData.expenses[props.index].amount)
+    var t = props.budgetData.expenses[props.index].amount  - getTransactionTotal() 
+    // console.log(  typeof props.budgetData.expenses[props.index].amount ,  props.budgetData.expenses[props.index].amount ,  typeof getTransactionTotal(), getTransactionTotal(), 'I see T', t, )
+    return t;
   }
 
 
 
-  const getTotal = () => {
-  //  console.log('budggg', props.budgetData.expenses[props.index].transactions,  props.budgetData.expenses[props.index].transactions)
+  const getTransactionTotal = () => {
+  //  console.log( 'props.budgetData.expenses[props.index].transactions', typeof props.budgetData.expenses[props.index].amount)
+   if(!props.budgetData.expenses[props.index].transactions)
+   {
+    return 0;
+   }  
+  //  else if(props.budgetData.expenses[props.index].transactions == undefined) {
+  //    let amount =  Number(props.budgetData.expenses[props.index].amount) 
+  //       return amount; 
+  //  }
+   
+
+
     return props.budgetData.expenses[props.index].transactions.reduce(
       (totalIncome, currentIncome) => totalIncome + currentIncome.amount, // reducer function
       0, // initial accumulator value
@@ -59,7 +75,7 @@ function BudgetItemList(props) {
         <div className=" flex-itemExpense ">
           {props.amount}
         </div>
-        <div className=" flex-itemExpense ">{calc()}</div>
+        <div className=" flex-itemExpense ">{plannedMinusRemaining()}</div>
           <button
           index={props.index}
           className="myBtn deleteBtn flex-itemExpense"
