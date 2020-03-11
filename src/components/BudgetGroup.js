@@ -55,7 +55,7 @@ height:'3px',
 
   const itemClickHandler = (isShown, index, name, amount) => {
     console.log('isShown in grouos', !isShown)
-  props.handleItemClick(isShown, index, name, amount)
+  props.handleItemClick(isShown, index, name, amount, props.index)
   }
 
   // const handleGroupDelete = (index) => {
@@ -103,8 +103,11 @@ height:'3px',
                       expenseID={props.budgetData.expenses[name].id}
                       budgetData={props.budgetData}
                       index={index}
+                      groupIndex={props.index}
                       deleteItem={handleItemDelete}
                       handleItemClick={itemClickHandler}
+                      
+
                     />
                   </li>
                 ))}

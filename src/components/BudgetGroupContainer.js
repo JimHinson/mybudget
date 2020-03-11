@@ -19,7 +19,7 @@ function BudgetGroupContainer(props) {
   }
 
   const addGroupNameHandler = name => {
-    console.log(props)
+    console.log('props', props)
     props.handleGroupSubmit(name)
   }
 
@@ -37,8 +37,15 @@ function BudgetGroupContainer(props) {
     props.handleGroupDelete(index)
   }
 
-  const handleItemClick = (isShown, index, name, amount) => {
-    props.handleItemClick(isShown, index, name, amount)
+  const handleItemClick = (isShown, index, name, amount, groupIndex) => {
+      if(props.budgetGroupValue[groupIndex].expenses[index]){
+        console.log('O saw the item',!props.budgetGroupValue[groupIndex].expenses[index] )
+      }
+      else {
+        console.log('00I saw saw the item',props.budgetGroupValue[groupIndex].expenses[index] )
+        handleGroupDelete(groupIndex)
+      }
+    props.handleItemClick(isShown, index, name, amount,groupIndex )
   }
   return (
     <div style={BudgetGroupContainer}>
@@ -57,7 +64,6 @@ function BudgetGroupContainer(props) {
               handleSubmit={handleFormSubmit}
               handleDeleteItem={deleteItem}
               handleItemClick={handleItemClick}
-
 
             />
           </div>

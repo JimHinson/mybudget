@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
 
@@ -53,15 +53,17 @@ function BudgetItemList(props) {
   }
 
   const handleClickHandler = (e) => {
-    props.handleItemClick(!isShown, props.index, props.name, props.amount);
+    props.handleItemClick(!isShown, props.index, props.name, props.amount, props.groupIndex);
+    // props.handleClick(isShown, props.index, props.name, props.amount)
   };
 
   // useEffect(() => {
+  //   console.log('props from item list', props.transaction)
   //   // add when mounted
-  //   document.addEventListener('mousedown', handleClickHandlerD);
+  //   // document.addEventListener('mousedown', handleClickHandlerD);
   //   // return function to be called when unmounted
   //   return () => {
-  //     document.removeEventListener('mousedown', handleClickHandlerU);
+  //     // document.removeEventListener('mousedown', handleClickHandlerU);
   //   };
   // }, []);
 

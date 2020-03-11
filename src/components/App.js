@@ -62,6 +62,36 @@ function App() {
       ],
     
     },
+    {
+      title: 'Car Maintainance',
+            expenses: [
+        { id: 0, name: 'Car repair ', amount: 200,  transactions: [
+          {
+            name: 'tires',
+            amount: 40,
+          },
+          {
+            name: 'oil change',
+            amount: 50,
+   
+          }
+        ],  },
+
+        { id: 1, name: 'Alternator', amount: 70, 
+        transactions: [
+          {
+            name: 'Part',
+            amount: 30,
+          },
+          {
+            name: 'Labor',
+            amount: 20,
+          }]
+      
+      }
+      ],
+    
+    },
   ])
   const [showTractionList, setshowTractionList] = useState(false)
   const [showBudgetGroupList, setshowBudgetGroupList] = useState(true)
@@ -194,12 +224,25 @@ function App() {
   }
 
 
-  const toggleTractionList = (isShown, index, name, amount) => {
+  const toggleTractionList = (isShown, index, name, amount, groupIndex) => {
     // setrowClickData(prevState => {
     //   return { ...prevState, isShown: isShown }
     // });
     // setrowClickData([])
-    setrowClickData({[isShown]: isShown, index: index });
+    setrowClickData({[isShown]: isShown, itemIndex: index, groupIndex: groupIndex });
+  // setrowClickData(previousValue => !previousValue);
+    // setrowClickData([isShown, index])
+    
+    setshowBudgetGroupList(previousValue => !previousValue)
+    setshowTractionList(previousValue => !previousValue)
+    console.log(rowClickData, 'name is herea with amiunt isShown',isShown, 'ItemIndex', index, 'name', name, amount, 'Group', groupIndex)
+    // setshowBudgetGroupList(false)
+    // setshowTractionList(true)
+    
+  }
+
+  const toggleList = (isShown, index, name, amount) => {
+        setrowClickData({[isShown]: isShown, index: index });
   // setrowClickData(previousValue => !previousValue);
     // setrowClickData([isShown, index])
     
@@ -210,7 +253,6 @@ function App() {
     // setshowTractionList(true)
     
   }
-
   const transactionTotal = (index) => {
    
     var currentexpenses = budgetGroupValue[0].expenses[0].transactions
@@ -226,6 +268,18 @@ function App() {
   //   };
   // }, [rowClickData])
 
+  const handleTransactionDelete = (groupIndex, itemIndex, index, name) => {
+    console.log(groupIndex, itemIndex,  index, 'I see the index and name', name )
+
+   let newBudgetGroupValue = budgetGroupValue
+   newBudgetGroupValue[groupIndex].expenses[itemIndex].transactions.splice(index, 1)
+
+    console.log('changeDD in appsjs', budgetGroupValue)
+
+    
+      setBudgetGroupValue([...newBudgetGroupValue])
+
+  }
 
   return (
     <div className="App">
@@ -246,6 +300,8 @@ function App() {
             handleDeleteItem={handleDeleteItem}
             handleGroupDelete={groupDeleteHandler}
             handleItemClick={toggleTractionList}
+           
+
 
           />
         </div>
@@ -299,7 +355,7 @@ function App() {
 {showTractionList && ( 
   <div style={transactionStyle}>
 
-    <ItemTransactionList budgetGroupValue={budgetGroupValue} rowValue={rowClickData} handleTransactionSubmit={handleTransactionSubmit} />
+    <ItemTransactionList handleTransactionDelete={handleTransactionDelete} budgetGroupValue={budgetGroupValue} rowValue={{itemIndex:rowClickData.itemIndex, groupIndex:rowClickData.groupIndex}} handleTransactionSubmit={handleTransactionSubmit} />
   </div>
 
            )}
