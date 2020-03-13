@@ -1,97 +1,68 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
+import { Button, Divider, Form, Input } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
 
+function BudgetItemList (props) {
+  const [isShown, setIsShown] = useState (false);
 
-function BudgetItemList(props) {
-
-  const [isShown, setIsShown] = useState(false);
- 
+  const liStyle = {
+    fontSize: '18px',
+    textAlign: 'center',
+  };
+  
 
   const handleDelete = () => {
-    props.deleteItem(props.index);
+    props.deleteItem (props.index);
   };
-  // const handleEvent = (event) => {
-  //   console.log('isshow', isShown,  'and', !isShown)
-  //   // if (event.type === "mousedown") {
-  //     setIsShown(!isShown)
-  //     //  } else {
-  //       // setIsShown(true)
-  //     //  }
-  //  }
-
-
-  const plannedMinusRemaining = (index) => {
-    
-    // if(!props.index) return props.budgetData.expenses[0].amount; 
-    // console.log('This is the total from budgeitemlist', getTransactionTotal())
-    // console.log('this is from budgetitems list props', props.budgetData.expenses[props.index].amount)
-    var t = props.budgetData.expenses[props.index].amount  - getTransactionTotal() 
-    // console.log(  typeof props.budgetData.expenses[props.index].amount ,  props.budgetData.expenses[props.index].amount ,  typeof getTransactionTotal(), getTransactionTotal(), 'I see T', t, )
+  const plannedMinusRemaining = index => {
+    var t =
+      props.budgetData.expenses[props.index].amount - getTransactionTotal ();
     return t;
-  }
-
-
+  };
 
   const getTransactionTotal = () => {
-  //  console.log( 'props.budgetData.expenses[props.index].transactions', typeof props.budgetData.expenses[props.index].amount)
-   if(!props.budgetData.expenses[props.index].transactions)
-   {
-    return 0;
-   }  
-  //  else if(props.budgetData.expenses[props.index].transactions == undefined) {
-  //    let amount =  Number(props.budgetData.expenses[props.index].amount) 
-  //       return amount; 
-  //  }
-   
+    if (!props.budgetData.expenses[props.index].transactions) {
+      return 0;
+    }
 
-
-    return props.budgetData.expenses[props.index].transactions.reduce(
+    return props.budgetData.expenses[props.index].transactions.reduce (
       (totalIncome, currentIncome) => totalIncome + currentIncome.amount, // reducer function
-      0, // initial accumulator value
-    )
-  }
-
-  const handleClickHandler = (e) => {
-    props.handleItemClick(!isShown, props.index, props.name, props.amount);
+      0 // initial accumulator value
+    );
   };
 
-  // useEffect(() => {
-  //   // add when mounted
-  //   document.addEventListener('mousedown', handleClickHandlerD);
-  //   // return function to be called when unmounted
-  //   return () => {
-  //     document.removeEventListener('mousedown', handleClickHandlerU);
-  //   };
-  // }, []);
+  const handleClickHandler = e => {
+    props.handleItemClick (
+      !isShown,
+      props.index,
+      props.name,
+      props.amount,
+      props.groupIndex
+    );
+  };
 
   return (
     <div>
-      <hr/>
+      <hr />
       <div className="flex-containerExpense" onClick={handleClickHandler}>
-        <div className=" flex-itemExpense">
+        <div className=" flex-itemExpense " style={liStyle}>
           {props.name}
         </div>
-        <div className=" flex-itemExpense ">
+        <div className="flex-itemExpense " style={liStyle}>
           {props.amount}
         </div>
-        <div className=" flex-itemExpense ">{plannedMinusRemaining()}</div>
-          <button
+        <div className="flex-itemExpense " style={liStyle}>{plannedMinusRemaining ()}</div>
+        <Button
           index={props.index}
-          className="myBtn deleteBtn flex-itemExpense"
+          className="myBtn deleteBtn flex-itemExpense" style={liStyle}
           onClick={handleDelete}
         >
           Delete
-        </button>
+        </Button>
 
-        <button
-          // index={props.index}
-          // className="myBtn deleteBtn flex-itemExpense"
-          // onClick={handleDelete}
-          className="myBtn"
-        >
-          Add transactions
-        </button>
+    
       </div>
     </div>
   );

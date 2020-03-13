@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "../styles/monthly.css";
-import "../styles/App.css"
+import "../styles/App.css";
+import { Button, Segment, Form, Input } from "semantic-ui-react";
+import "semantic-ui-css/semantic.min.css";
 
 function AddBudgetItem(props) {
   const [budgetItem, setbudgetItem] = useState("");
@@ -12,12 +14,12 @@ function AddBudgetItem(props) {
     setbudgetItem("")
     props.handleSubmit(budgetItem, amount)
   } 
-  
+ 
 
 
   return (
     <form onSubmit={handleSubmit} className="formBody">
-      <input
+      <Input
         type="text"
         id="budgetItem"
         className="input"
@@ -26,15 +28,17 @@ function AddBudgetItem(props) {
         placeholder="budget item"
       />
 
-      <input
+      <Input
         type="number"
         id="amount"
         className="input"
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="amount"
+        icon='dollar sign' iconPosition='left'
       />
-      <button className="myBtn" type="submit">Submit</button>
+      {/* <button className="myBtn" type="submit">Submit</button> */}
+      <Button primary type="submit" data-selected="true" data-label-id="0">Submit</Button>
     </form>
   );
 }
