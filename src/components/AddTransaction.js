@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/monthly.css";
+import { Input, Button } from "semantic-ui-react";
 
 function AddTransaction(props) {
   const [name, setname] = useState("");
@@ -16,17 +17,17 @@ function AddTransaction(props) {
   } 
   
   const button = {
-    backgroundColor: '#28B9B5',
-    border: 'none',
-    borderRadius: '15px',
-    color: 'white',
-    padding: '5px 10px',
-    textAlign: 'center',
-    textDecoration: 'none',
-    display: 'inline-block',
-    fontSize: '16px',
-    margin: '4px 2px',
-    cursor: 'pointer'
+    // backgroundColor: '#28B9B5',
+    // border: 'none',
+    // borderRadius: '15px',
+    // color: 'white',
+    // padding: '5px 10px',
+    // textAlign: 'center',
+    // textDecoration: 'none',
+    // display: 'inline-block',
+    // fontSize: '16px',
+    // margin: '4px 2px',
+    // cursor: 'pointer'
   } 
 
   // useEffect(() => {
@@ -38,26 +39,28 @@ function AddTransaction(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input
+      <Input
         type="text"
         id="name"
-        className="InputText"
-        size="15"
+        className="inputText"
+        size="mini"
         value={name}
         onChange={e => setname(e.target.value)}
         placeholder="name"
       />
 
-      <input
+      <Input
         type="text"
+        size='mini'
         id="amount"
         className="InputNumber"
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="amount"
+        icon='dollar sign' iconPosition='left'
       
       />
-      <button type="submit" style={button}>Submit</button>
+      <Button type="submit" className="primary">Submit</Button>
     </form>
   );
 }

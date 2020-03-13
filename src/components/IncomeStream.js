@@ -1,10 +1,10 @@
-import React from "react";
-import "../styles/monthly.css";
+import React from 'react';
+import '../styles/monthly.css';
 
-function IncomeStream(props) {
-  const handleDelete = ()=> {
-  props.deleteIncome(props.index)
- } 
+function IncomeStream (props) {
+  const handleDelete = () => {
+    props.deleteIncome (props.index);
+  };
   return (
     <div className="budget__income clearfix">
       <div className="budget__income--text">{props.paycheck}</div>
@@ -13,7 +13,7 @@ function IncomeStream(props) {
         <div className="budget__income--percentage">&nbsp;</div>
         <button index={props.index} onClick={handleDelete}>Delete</button>
       </div>
-      
+
     </div>
   );
 }
