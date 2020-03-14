@@ -25,6 +25,7 @@ textAlign:'center',
 border: '5px solid white',
 borderRadius: '20px',
 marginBottom: '30px', 
+cursor:'pointer'
   }
 
 
@@ -35,23 +36,24 @@ marginTop: '30px',
 
     <div className="top">
       <div >
-         <button style={resetStyle} onClick={props.clearBudget}> RESET</button>
+         <button  style={resetStyle} onClick={props.clearBudget} color="youtube"> RESET</button>
          </div>
-      <div className="budget" style={margB}>
+      <div className="budget" style={margB} data-tut="reactour__iso">
         <div className="budget__title">
           Available Budget in{' '}
           <span className="budget__title--month">January</span>:
         </div>
         <div className="budget__value">+{props.finalTotal ()}</div>
-        <ul>
+        <ul className="striped-listIncome">
           {props.incomes.map ((income, index) => (
-            <IncomeStream
+           <li key={index}> <IncomeStream
               key={income.paycheck}
               amount={income.amount}
               paycheck={income.paycheck}
               index={index}
               deleteIncome={handleIncomeDelete}
             />
+            </li>
           ))}
         </ul>
         <PayCheckForm

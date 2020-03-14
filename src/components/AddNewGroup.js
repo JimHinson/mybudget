@@ -15,16 +15,23 @@ function AddNewGroup(props) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Input
+      <div data-tut="reactour__logo">
+>
+    <Input
         type="text"
         id="name"
         className="input"
         value={name}
         onChange={e => setname(e.target.value)}
-        placeholder="Group Name"
+        placeholder="Add A Group Name"
+        
       />
+      
       <Button type="submit" primary className="myBtn">Add New Group</Button>
-    </form>
+    
+
+      </div>
+      </form>
   );
 }
 

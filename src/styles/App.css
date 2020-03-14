@@ -8,6 +8,16 @@
     box-sizing: border-box;
   }
 
+.shadow-md bg-purple-dark {
+    background-color: red;
+}
+.budgetIncome {
+    letter-spacing: 1px;
+    float: left;
+    color:black;
+    font-size: 1.5em;
+}
+
   ul.striped-list {
     list-style-type: none;
     /* margin: 0;
@@ -25,6 +35,23 @@ ul.striped-list > li:last-child {
     border-bottom: none;
 }
 
+
+ul.striped-list {
+    list-style-type: none;
+    /* margin: 0;
+    padding: 0;
+    max-width: 200px; */
+}
+ul.striped-list > li {
+    border-bottom: 1px solid rgb(221,221,221);
+    padding: 6px;
+}
+ul.striped-list > li:nth-of-type(odd) {
+    background-color: #c2c2c8 ;
+}
+ul.striped-list > li:last-child {
+    border-bottom: none;
+}
   
   hr {
     border: none;
@@ -247,7 +274,9 @@ input {
 
 .budget__income {
     margin-bottom: 10px;
-    background-color: #28B9B5;
+    background-color: rgb(246, 239, 239);
+
+    /* background-color: #28B9B5; */
 }
 
 .budget__income1 {

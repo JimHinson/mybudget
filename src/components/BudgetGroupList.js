@@ -15,7 +15,7 @@ function BudgetGroupList (props) {
     backgroundColor: 'red',
   };
   return (
-    <div>
+    <div data-tut="reactour__transactionContainer">
 
       <hr />
       <div className="budget__income clearfix" style={expenseStyle}>

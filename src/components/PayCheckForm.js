@@ -43,7 +43,7 @@ function PayCheckForm (props) {
         size="small"
         value={paycheck}
         onChange={e => setpaycheck (e.target.value)}
-        placeholder="pay source"
+        placeholder="Add A Paycheck"
       />
 
       <Input
@@ -55,7 +55,7 @@ function PayCheckForm (props) {
         placeholder="paycheckAmount"
         icon='dollar sign' iconPosition='left'
       />
-      <Button type="submit" style={button}>
+      <Button type="submit" className="primary">
         Submit
       </Button>
     </form>
@@ -63,3 +63,12 @@ function PayCheckForm (props) {
 }
 
 export default PayCheckForm;
+
+
+
+
+
+
+
+
+

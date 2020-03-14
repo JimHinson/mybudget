@@ -6,11 +6,53 @@ import BudgetGroupList from './BudgetGroupList';
 import ItemTransactionList from './ItemTransactionList';
 import { Button, Form, Input } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
+import Tour from 'reactour'
 
 function App () {
+  const [steps, setsteps] = useState([
+    // {
+    //   selector: '.first-step',
+    //   content: 'This is my first Step',
+    // }
+  
+    {
+      selector: '[data-tut="reactour__iso"]',
+      content: `This is where you can add you paychecks or investments, simply add a paycheck to get started.`,
+    },
+    
+    {
+      selector: '[data-tut="reactour__itemList"]',
+      content: `This container will contain your budget groups and you expenses for the group…`
+    },
+   
+    {
+      selector: '[data-tut="reactour__transactionList"]',
+      content:
+        "Each budget group has expenses, click on the row of the expense to see the transaction for that expense…"
+    },
+    {
+      selector: '[data-tut="reactour__logo"]',
+      content: `Simply add a budget group to get started, Food is a good group to start with`
+    },
+    {
+      selector: '[data-tut="reactour__transactionContainer"]',
+      content: "This area will either be a list of transaction or budget group list…"
+    },
+    {
+      selector: '[data-tut="reactour__deleteGroup"]',
+      content:
+        "You can delete a budget group",
+      // observe: '[data-tut="reactour__state--observe"]'
+    }
+  
+  ])
+
+  const [isTourOpen, setisTourOpen] = useState (true);
+  // const [closeTour, setcloseTour] = useState (false);
+
   const [incomes, setincomes] = useState ([
-    {paycheck: 'Webassign', amount: 500},
-    {paycheck: 'Investment', amount: 100},
+    // {paycheck: 'Webassign', amount: 500},
+    // {paycheck: 'Investment', amount: 100},
   ]);
   const [budgetGroupValue, setBudgetGroupValue] = useState ([
     {
@@ -60,42 +102,42 @@ function App () {
         },
       ],
     },
-    {
-      title: 'Car Maintainance',
-      expenses: [
-        {
-          id: 0,
-          name: 'Car repair ',
-          amount: 200,
-          transactions: [
-            {
-              name: 'tires',
-              amount: 40,
-            },
-            {
-              name: 'oil change',
-              amount: 50,
-            },
-          ],
-        },
+    // {
+    //   title: 'Car Maintainance',
+    //   expenses: [
+    //     {
+    //       id: 0,
+    //       name: 'Car repair ',
+    //       amount: 200,
+    //       transactions: [
+    //         {
+    //           name: 'tires',
+    //           amount: 40,
+    //         },
+    //         {
+    //           name: 'oil change',
+    //           amount: 50,
+    //         },
+    //       ],
+    //     },
 
-        {
-          id: 1,
-          name: 'Alternator',
-          amount: 70,
-          transactions: [
-            {
-              name: 'Part',
-              amount: 30,
-            },
-            {
-              name: 'Labor',
-              amount: 20,
-            },
-          ],
-        },
-      ],
-    },
+    //     {
+    //       id: 1,
+    //       name: 'Alternator',
+    //       amount: 70,
+    //       transactions: [
+    //         {
+    //           name: 'Part',
+    //           amount: 30,
+    //         },
+    //         {
+    //           name: 'Labor',
+    //           amount: 20,
+    //         },
+    //       ],
+    //     },
+    //   ],
+    // },
   ]);
   const [showTractionList, setshowTractionList] = useState (false);
   const [showBudgetGroupList, setshowBudgetGroupList] = useState (true);
@@ -252,6 +294,19 @@ function App () {
     setincomes([])
   }
 
+  useEffect(() => {
+    if(budgetGroupValue.length < 1){
+      setshowBudgetGroupList(false)
+    }
+    return () => {
+      
+    }
+  }, [])
+
+  const closeTour = () => {
+    setisTourOpen(false)
+  }
+
   return (
     <div className="App">
       <MonthlyIncome
@@ -278,7 +333,7 @@ function App () {
 
         {/* { budget percentage section} */}
         {showBudgetGroupList &&
-          <div className="col down1">
+          <div className="col down1" data-tut="reactour__transactionContainer">
             <div style={circleStyle}>
               <span style={center}>
                 <b>Income</b> ${finalTotal ()}
@@ -296,7 +351,7 @@ function App () {
             <hr />
             <div>
 
-              <div>
+              <div >
                 {budgetGroupValue.map ((budgetInfo, index) => (
                   <BudgetGroupList
                     key={budgetInfo.title}
@@ -322,6 +377,12 @@ function App () {
             />
           </div>}
       </div>
+      
+
+      <Tour
+        steps={steps}
+        isOpen={isTourOpen}
+        onRequestClose={closeTour} />
     </div>
   );
 }

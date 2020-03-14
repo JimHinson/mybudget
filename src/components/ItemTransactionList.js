@@ -55,7 +55,7 @@ function ItemTransactionList (props) {
 
   return (
     <div>
-      <div className="col transctioncol" style={cardStyle}>
+      <div data-tut="reactour__transactionContainer" className="col transctioncol" style={cardStyle}>
         <div className="budget__income1 clearfix ui dividing header">
           <hr />
           <div className="budget__income--value bold">Transactions</div>
@@ -87,8 +87,10 @@ function ItemTransactionList (props) {
                 </div>
 
                 <Button
+                
+                color='youtube'
                   index={props.index}
-                  className="myBtn deleteBtn flex-itemExpense"
+                  className="white "
                   onClick={() =>
                     props.handleTransactionDelete (
                       props.rowValue.groupIndex,
