@@ -44,9 +44,9 @@ function BudgetItemList (props) {
   };
 
   return (
-    <div>
+    <div >
       <hr />
-      <div className="flex-containerExpense" onClick={handleClickHandler}>
+      <div data-tut="reactour__transactionList" className="flex-containerExpense" onClick={handleClickHandler}>
         <div className=" flex-itemExpense " style={liStyle}>
           {props.name}
         </div>

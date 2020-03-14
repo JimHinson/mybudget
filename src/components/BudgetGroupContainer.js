@@ -61,12 +61,13 @@ function BudgetGroupContainer (props) {
     props.handleItemClick (isShown, index, name, amount, groupIndex);
   };
   return (
-    <div style={BudgetGroupContainer}>
+    <div style={BudgetGroupContainer} data-tut="reactour__itemList">
       {props.budgetGroupValue.map ((budgetObject, index) => (
        
        <div key={index}>
           <div>
-            <Button
+            <div>
+     <Button data-tut="reactour__deleteGroup"
               index={index}
               onClick={e => handleGroupDelete (index)}
               className=""
@@ -74,6 +75,9 @@ function BudgetGroupContainer (props) {
             >
               Delete {budgetObject.title} Group
             </Button>
+
+            </div>
+       
             <BudgetGroup
               key={index}
               budgetData={budgetObject}
