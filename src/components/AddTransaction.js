@@ -8,7 +8,7 @@ function AddTransaction(props) {
  
   const handleSubmit = (event)=> { 
     event.preventDefault(); 
-    props.handleTransactionSubmit(name, amount)
+    props.handleTransactionSubmit(name, amount,props.rowValue)
 
     // setamount("")
     // setname("")

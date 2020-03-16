@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/monthly.css";
 import "../styles/App.css"
 import { Button, Form, Input } from "semantic-ui-react";
@@ -13,21 +13,21 @@ function AddNewGroup(props) {
     setname('')
   }
 
+
   return (
     <form onSubmit={handleSubmit}>
       <div data-tut="reactour__logo">
->
     <Input
         type="text"
         id="name"
         className="input"
         value={name}
         onChange={e => setname(e.target.value)}
-        placeholder="Add A Group Name"
+        placeholder="Add Budget Category"
         
       />
       
-      <Button type="submit" primary className="myBtn">Add New Group</Button>
+      <Button type="submit" primary className="myBtn">Add Budget Category</Button>
     
 
       </div>

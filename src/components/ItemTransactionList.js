@@ -38,18 +38,19 @@ function ItemTransactionList (props) {
   };
 
   useEffect (() => {
+    console.log('Im in the transaction list', props.budgetGroupValue, 'rpwva', props.rowValue)
     if (!props.rowValue.itemIndex) {
-      console.log('rowbalue not ', props.rowValue)
+      console.log('itl, rowvalitemindex doenst exist ', props.rowValue)
       return;
     };
     if (!props.rowValue.groupIndex) {
-      console.log('rowbalue not22 ', props.rowValue)
+      console.log('itl rowvalgroupindex doesnt exist ', props.rowValue)
       return;
     };
-    if(props.budgetGroupValue[props.rowValue.groupIndex].expenses.length > 0){
-      console.log('rowbalue not333 ', props.rowValue)
-      return;
-    }
+    // if(props.budgetGroupValue[props.rowValue.groupIndex].expenses.length > 0){
+    //   console.log('itl both groupadn index val exist ', props.rowValue)
+    //   return;
+    // }
     return () => {};
   }, [props.budgetGroupValue]);
 
@@ -67,6 +68,8 @@ function ItemTransactionList (props) {
         </div>
         <hr />
         <div> 
+    {console.log('%c itl, in useeffect','color: blue; font-weight: bold;',props.budgetGroupValue[props.rowValue.groupIndex].expenses[props.rowValue.itemIndex])}
+
       {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
               props.rowValue.itemIndex
             ] ? 
@@ -107,7 +110,7 @@ function ItemTransactionList (props) {
             <div className="ui large label">
               Add A Transaction
               <AddTransaction
-                handleTransactionSubmit={props.handleTransactionSubmit}
+                handleTransactionSubmit={props.handleTransactionSubmit} rowValue={props.rowValue}
               />
             </div>
             <div style={expenseStyle}>
@@ -116,7 +119,7 @@ function ItemTransactionList (props) {
           </div>
 
           : 
-          <div> Add Expenses to see transactions</div>
+          <div> Add Transactions to your Expenses</div>
     }
          
         </div>

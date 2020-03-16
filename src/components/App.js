@@ -47,11 +47,11 @@ function App () {
   
   ])
 
-  const [isTourOpen, setisTourOpen] = useState (true);
+  const [isTourOpen, setisTourOpen] = useState (false);
   // const [closeTour, setcloseTour] = useState (false);
 
   const [incomes, setincomes] = useState ([
-    // {paycheck: 'Webassign', amount: 500},
+    {paycheck: 'PayCheck#1', amount: 500},
     // {paycheck: 'Investment', amount: 100},
   ]);
   const [budgetGroupValue, setBudgetGroupValue] = useState ([
@@ -64,17 +64,17 @@ function App () {
           amount: 300,
           transactions: [
             {
-              name: 'walmart',
+              name: 'Walmart',
               amount: 40,
             },
-            {
-              name: 'aldi',
-              amount: 50,
-            },
-            {
-              name: 'taco',
-              amount: 25,
-            },
+            // {
+            //   name: 'aldi',
+            //   amount: 50,
+            // },
+            // {
+            //   name: 'taco',
+            //   amount: 25,
+            // },
           ],
         },
 
@@ -84,19 +84,19 @@ function App () {
           amount: 150,
           transactions: [
             {
-              name: 'BJs',
-              amount: 200,
+              name: 'Burger King',
+              amount: 10,
             },
           ],
         },
         {
           id: 2,
-          name: 'snacks',
+          name: 'Snacks',
           amount: 10,
           transactions: [
             {
-              name: 'Sheetz',
-              amount: 200,
+              name: 'Gas Station',
+              amount: 5,
             },
           ],
         },
@@ -182,14 +182,39 @@ function App () {
     setincomes ([...incomes, {paycheck, amount: Number (amount)}]);
   };
 
-  const handleTransactionSubmit = (name, amount) => {
-    // console.log('I made it here', name, amount)
-    //does my category exist?
-    //prefer to find by name
-    //does my expense exist?
-    // add transaction to the expense
-    // send error if try to add a transaction to an expense that doesnt exist
-    // setBudgetGroupValue()
+  const handleTransactionSubmit = (name, amount, rowValue) => {
+    // const {index, groupIndex} = rowValue
+    console.log('I made it here', name, amount, rowValue, 'budget', budgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex] )
+    
+    setBudgetGroupValue (prevBudgetGroupValue => {
+      return [
+        // ...prevBudgetGroupValue.slice (0, index),
+        {
+              
+          ...prevBudgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex],
+          transactions: [
+            ...prevBudgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex].transactions,
+            {name, amount: Number(amount)}
+          ]
+           
+              
+
+          // ...prevBudgetGroupValue[index].expenses,
+          // transactions: [
+          //   ...prevBudgetGroupValue[index].expenses,
+          //   { name: 'transaction 1', amount: 0 },
+          // ],
+        },
+        // ...prevBudgetGroupValue.slice (index + 1),
+      ];
+    });
+    
+    
+    // setBudgetGroupValue(budgetGroupValue =>
+      // [...budgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex].transactions, {name, amount: amount}]
+      
+      // )
+
   };
 
   const handleDeleteIncome = index => {
@@ -294,14 +319,14 @@ function App () {
     setincomes([])
   }
 
-  useEffect(() => {
-    if(budgetGroupValue.length < 1){
-      setshowBudgetGroupList(false)
-    }
-    return () => {
-      
-    }
-  }, [])
+  // useEffect(() => {
+  //   if(budgetGroupValue.length < 1){
+  //     setshowBudgetGroupList(false)
+  //   }
+  //   return () => {
+  //     console.clear()
+  //   }
+  // }, [])
 
   const closeTour = () => {
     setisTourOpen(false)

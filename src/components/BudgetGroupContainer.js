@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useEffect} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
 import BudgetGroup from './BudgetGroup';
@@ -60,10 +60,19 @@ function BudgetGroupContainer (props) {
     // }
     props.handleItemClick (isShown, index, name, amount, groupIndex);
   };
+  useEffect(() => {
+    console.log('%c bgc, in useeffect', props.budgetGroupValue)
+    return () => {
+      
+    }
+  }, [props.budgetGroupValue])
+
   return (
     <div style={BudgetGroupContainer} data-tut="reactour__itemList">
+    {console.log('%c bgc, in inside return', 'color: red; font-weight: bold;',props.budgetGroupValue)}
+
       {props.budgetGroupValue.map ((budgetObject, index) => (
-       
+        console.log(index, 'in the budgtetcontainer', budgetObject),
        <div key={index}>
           <div>
             <div>
@@ -80,6 +89,7 @@ function BudgetGroupContainer (props) {
        
             <BudgetGroup
               key={index}
+              budgetGroupValue={props.budgetGroupValue}
               budgetData={budgetObject}
               index={index}
               handleSubmit={handleFormSubmit}

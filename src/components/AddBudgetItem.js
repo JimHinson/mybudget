@@ -26,16 +26,20 @@ function AddBudgetItem(props) {
         value={budgetItem}
         onChange={e => setbudgetItem(e.target.value)}
         placeholder="budget item"
+        required
       />
 
       <Input
-        type="number"
+        type="text"
         id="amount"
         className="input"
         value={amount}
         onChange={e => setamount(e.target.value)}
         placeholder="amount"
         icon='dollar sign' iconPosition='left'
+        pattern="[0-9.]+"
+        required
+        
       />
       {/* <button className="myBtn" type="submit">Submit</button> */}
       <Button primary type="submit" data-selected="true" data-label-id="0">Submit</Button>
