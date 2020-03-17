@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
-import { Button, Divider, Form, Input } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
+import 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 import AddBudgetItem from './AddBudgetItem';
 import BudgetItemList from './BudgetItemList';
 
@@ -31,7 +31,6 @@ function BudgetGroup (props) {
     fontSize: '15px',
     textAlign: 'center',
   };
-  
 
   const containerStyle = {
     listStyleType: 'none',
@@ -56,19 +55,16 @@ function BudgetGroup (props) {
     props.handleDeleteItem (props.index, index);
   };
 
-  const itemClickHandler = (isShown, index, name, amount) => {
-    props.handleItemClick (isShown, index, name, amount, props.index);
+  const itemClickHandler = (isShown, index, name, amount, groupIndex) => {
+    props.handleItemClick (
+      isShown,
+      index,
+      name,
+      amount,
+      props.index,
+      groupIndex
+    );
   };
-
-  // the data is changed, when first load, I see the whole object, on adding
-  // after adding transaction, the data changes to the single expense. 
-  
-  // useEffect(() => {
-  //   console.log(props.budgetGroupValue,'in the budget group useeffect',props.budgetData)
-  //   return () => {
-  //     // cleanup
-  //   }
-  // }, [props.budgetGroupValue])
   return (
     <div className="budgetGroup">
       <div style={containerStyle}>
@@ -80,7 +76,8 @@ function BudgetGroup (props) {
           <ul>
             <li>
               <h1 style={cHeader}>
-               {props.budgetData.title} ${budgetGroupTotal ()}
+
+                {props.budgetData.title} ${budgetGroupTotal ()}
               </h1>
               <ul style={divStyle} className="striped-list">
 
@@ -93,17 +90,16 @@ function BudgetGroup (props) {
                   <hr />
                 </div>
                 <hr style={hrStyle} />
-    {console.log('%c itl, in useeffect','color: pink; font-weight: bold;',props.budgetGroupValue, 'bg items specifc', props.budgetData)}
 
-                {Object.keys (props.budgetData.expenses).map((expenseIndex, index) => (
-                  console.log(props.budgetData.expenses[expenseIndex].name, props.budgetData.expenses[expenseIndex].amount, 'expenseIndex and index inside budget group', expenseIndex, index),
+                {Object.keys (
+                  props.budgetData.expenses
+                ).map ((expenseIndex, index) => (
                   <li style={liStyle} key={expenseIndex + index}>
-                    
+
                     <BudgetItemList
                       key={expenseIndex + index}
                       amount={props.budgetData.expenses[expenseIndex].amount}
                       name={props.budgetData.expenses[expenseIndex].name}
-                      // expenseID={props.budgetData.expenses[name].id}
                       budgetData={props.budgetData}
                       index={index}
                       groupIndex={props.index}

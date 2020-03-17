@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
 import AddTransaction from '../components/AddTransaction';
-import { Button, Divider } from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
 
 function ItemTransactionList (props) {
   const expenseStyle = {
@@ -33,30 +33,38 @@ function ItemTransactionList (props) {
     );
   };
 
-  const handleDelete = (index, name) => {
-    console.log (index, 'I clicked delete transaction', name);
-  };
-
-  useEffect (() => {
-    console.log('Im in the transaction list', props.budgetGroupValue, 'rpwva', props.rowValue)
-    if (!props.rowValue.itemIndex) {
-      console.log('itl, rowvalitemindex doenst exist ', props.rowValue)
-      return;
-    };
-    if (!props.rowValue.groupIndex) {
-      console.log('itl rowvalgroupindex doesnt exist ', props.rowValue)
-      return;
-    };
-    // if(props.budgetGroupValue[props.rowValue.groupIndex].expenses.length > 0){
-    //   console.log('itl both groupadn index val exist ', props.rowValue)
-    //   return;
-    // }
-    return () => {};
-  }, [props.budgetGroupValue]);
+  useEffect (
+    () => {
+      console.log (
+        'Im in the transaction list',
+        props.budgetGroupValue,
+        'check this out itl',
+        props.rowValue
+      );
+      if (props.rowValue.itemIndex === undefined) {
+        console.log ('itl, index doenst exist ', props.rowValue);
+        return;
+      }
+      if (props.rowValue.groupIndex === undefined) {
+        console.log ('itl groupindex doesnt exist ', props.rowValue);
+        return;
+      }
+      if (props.budgetGroupValue.length < 1) {
+        console.log ('exist no items exist', props.rowValue);
+        return;
+      }
+      return () => {};
+    },
+    [props.budgetGroupValue]
+  );
 
   return (
     <div>
-      <div data-tut="reactour__transactionContainer" className="col transctioncol" style={cardStyle}>
+      <div
+        data-tut="reactour__transactionContainer"
+        className="col transctioncol"
+        style={cardStyle}
+      >
         <div className="budget__income1 clearfix ui dividing header">
           <hr />
           <div className="budget__income--value bold">Transactions</div>
@@ -67,61 +75,57 @@ function ItemTransactionList (props) {
           {/* <Divider/> */}
         </div>
         <hr />
-        <div> 
-    {console.log('%c itl, in useeffect','color: blue; font-weight: bold;',props.budgetGroupValue[props.rowValue.groupIndex].expenses[props.rowValue.itemIndex])}
+        <div>
+          {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
+            props.rowValue.itemIndex
+          ]
+            ? <div>
+                {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
+                  props.rowValue.itemIndex
+                ].transactions.map ((transaction, index) => (
+                  <div className="budget__income1 " key={index}>
+                    <hr />
+                    <div className="budget__income--value">
+                      {transaction.name.toUpperCase ()}
+                    </div>
+                    <div className="right">
+                      <div className="budget__income--value">
+                        {transaction.amount}
+                      </div>
+                      <div className="budget__income--percentage">&nbsp;</div>
+                    </div>
 
-      {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
-              props.rowValue.itemIndex
-            ] ? 
-          <div>
-            {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
-              props.rowValue.itemIndex
-            ].transactions.map ((transaction, index) => (
-              <div className="budget__income1 " key={index}>
-                <hr />
-                <div className="budget__income--value">
-                  {transaction.name.toUpperCase ()}
-                </div>
-                <div className="right">
-                  <div className="budget__income--value">
-                    {transaction.amount}
+                    <Button
+                      color="youtube"
+                      index={props.index}
+                      className="white "
+                      onClick={() =>
+                        props.handleTransactionDelete (
+                          props.rowValue.groupIndex,
+                          props.rowValue.itemIndex,
+                          index,
+                          transaction.name
+                        )}
+                    >
+                      Delete
+                    </Button>
                   </div>
-                  <div className="budget__income--percentage">&nbsp;</div>
+                ))}
+
+                <div className="ui large label">
+                  Add A Transaction
+                  <AddTransaction
+                    handleTransactionSubmit={props.handleTransactionSubmit}
+                    rowValue={props.rowValue}
+                    budgetData={props.budgetGroupValue}
+                  />
                 </div>
-
-                <Button
-                
-                color='youtube'
-                  index={props.index}
-                  className="white "
-                  onClick={() =>
-                    props.handleTransactionDelete (
-                      props.rowValue.groupIndex,
-                      props.rowValue.itemIndex,
-                      index,
-                      transaction.name
-                    )}
-                >
-                  Delete
-                </Button>
+                <div style={expenseStyle}>
+                  Total: {transactionTotal (props.rowValue.index)}{' '}
+                </div>
               </div>
-            ))}
+            : <div> Add Transactions to your Expenses</div>}
 
-            <div className="ui large label">
-              Add A Transaction
-              <AddTransaction
-                handleTransactionSubmit={props.handleTransactionSubmit} rowValue={props.rowValue}
-              />
-            </div>
-            <div style={expenseStyle}>
-              Total: {transactionTotal (props.rowValue.index)}{' '}
-            </div>
-          </div>
-
-          : 
-          <div> Add Transactions to your Expenses</div>
-    }
-         
         </div>
       </div>
 

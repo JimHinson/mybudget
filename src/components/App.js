@@ -4,62 +4,58 @@ import MonthlyIncome from './MonthlyIncome';
 import BudgetGroupContainer from './BudgetGroupContainer';
 import BudgetGroupList from './BudgetGroupList';
 import ItemTransactionList from './ItemTransactionList';
-import { Button, Form, Input } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
-import Tour from 'reactour'
+import 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
+import Tour from 'reactour';
 
 function App () {
-  const [steps, setsteps] = useState([
-    // {
-    //   selector: '.first-step',
-    //   content: 'This is my first Step',
-    // }
-  
+  const [steps] = useState ([
     {
       selector: '[data-tut="reactour__iso"]',
       content: `This is where you can add you paychecks or investments, simply add a paycheck to get started.`,
     },
-    
+
     {
       selector: '[data-tut="reactour__itemList"]',
-      content: `This container will contain your budget groups and you expenses for the group…`
+      content: `This container will contain your budget groups and you expenses for the group…`,
     },
-   
+
     {
       selector: '[data-tut="reactour__transactionList"]',
-      content:
-        "Each budget group has expenses, click on the row of the expense to see the transaction for that expense…"
+      content: 'Each budget group has expenses, click on the row of the expense to see the transaction for that expense…',
     },
     {
       selector: '[data-tut="reactour__logo"]',
-      content: `Simply add a budget group to get started, Food is a good group to start with`
+      content: `Simply add a budget group to get started, Food is a good group to start with`,
     },
     {
       selector: '[data-tut="reactour__transactionContainer"]',
-      content: "This area will either be a list of transaction or budget group list…"
+      content: 'This area will either be a list of transaction or budget group list…',
     },
     {
       selector: '[data-tut="reactour__deleteGroup"]',
-      content:
-        "You can delete a budget group",
-      // observe: '[data-tut="reactour__state--observe"]'
-    }
-  
-  ])
+      content: 'You can delete a budget group',
+    },
+    {
+      selector: '[data-tut="reactour__reset"]',
+      content: 'You can reset the budget by clicking the reset button',
+    },
+    {
+      selector: '[data-tut="reactour__help"]',
+      content: 'You can open this guide by pressing the help icon',
+    },
+  ]);
 
-  const [isTourOpen, setisTourOpen] = useState (false);
-  // const [closeTour, setcloseTour] = useState (false);
+  const [isTourOpen, setisTourOpen] = useState (true);
 
   const [incomes, setincomes] = useState ([
     {paycheck: 'PayCheck#1', amount: 500},
-    // {paycheck: 'Investment', amount: 100},
   ]);
   const [budgetGroupValue, setBudgetGroupValue] = useState ([
     {
       title: 'Food',
       expenses: [
         {
-          id: 0,
           name: 'Groceries',
           amount: 300,
           transactions: [
@@ -67,14 +63,6 @@ function App () {
               name: 'Walmart',
               amount: 40,
             },
-            // {
-            //   name: 'aldi',
-            //   amount: 50,
-            // },
-            // {
-            //   name: 'taco',
-            //   amount: 25,
-            // },
           ],
         },
 
@@ -106,7 +94,7 @@ function App () {
     //   title: 'Car Maintainance',
     //   expenses: [
     //     {
-    //       id: 0,
+    //
     //       name: 'Car repair ',
     //       amount: 200,
     //       transactions: [
@@ -122,7 +110,6 @@ function App () {
     //     },
 
     //     {
-    //       id: 1,
     //       name: 'Alternator',
     //       amount: 70,
     //       transactions: [
@@ -142,7 +129,6 @@ function App () {
   const [showTractionList, setshowTractionList] = useState (false);
   const [showBudgetGroupList, setshowBudgetGroupList] = useState (true);
   const [rowClickData, setrowClickData] = useState ();
-  const [transaction, settransaction] = useState ([]);
 
   const transactionStyle = {
     marginTop: '230px',
@@ -167,54 +153,36 @@ function App () {
     marginBottom: '30px',
   };
 
-  const cardStyle = {
-    boxShadow: '20px 26px 38px 20px rgba(0,0,0,0.2)',
-    transition: '0.3s',
-    width: '35%',
-    border: '5px solid black',
-    position: 'absolute',
-    top: '438px',
-    right: '16px',
-    fontSize: '18px',
+  const toggleHelp = () => {
+    setisTourOpen (!isTourOpen);
   };
-  // code for income area
   const handleChangeIncome = (paycheck, amount) => {
     setincomes ([...incomes, {paycheck, amount: Number (amount)}]);
   };
 
   const handleTransactionSubmit = (name, amount, rowValue) => {
-    // const {index, groupIndex} = rowValue
-    console.log('I made it here', name, amount, rowValue, 'budget', budgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex] )
-    
     setBudgetGroupValue (prevBudgetGroupValue => {
-      return [
-        // ...prevBudgetGroupValue.slice (0, index),
-        {
-              
-          ...prevBudgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex],
-          transactions: [
-            ...prevBudgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex].transactions,
-            {name, amount: Number(amount)}
-          ]
-           
-              
-
-          // ...prevBudgetGroupValue[index].expenses,
-          // transactions: [
-          //   ...prevBudgetGroupValue[index].expenses,
-          //   { name: 'transaction 1', amount: 0 },
-          // ],
-        },
-        // ...prevBudgetGroupValue.slice (index + 1),
-      ];
+      return prevBudgetGroupValue.map (
+        (budget, budgetIndex) =>
+          budgetIndex === rowValue.groupIndex
+            ? {
+                ...budget,
+                expenses: budget.expenses.map (
+                  (expense, expenseIndex) =>
+                    expenseIndex === rowValue.itemIndex
+                      ? {
+                          ...expense,
+                          transactions: [
+                            ...expense.transactions,
+                            {name, amount: Number (amount)},
+                          ],
+                        }
+                      : expense
+                ),
+              }
+            : budget
+      );
     });
-    
-    
-    // setBudgetGroupValue(budgetGroupValue =>
-      // [...budgetGroupValue[rowValue.groupIndex].expenses[rowValue.itemIndex].transactions, {name, amount: amount}]
-      
-      // )
-
   };
 
   const handleDeleteIncome = index => {
@@ -239,14 +207,8 @@ function App () {
           ...prevBudgetGroupValue[index],
           expenses: [
             ...prevBudgetGroupValue[index].expenses,
-            {name, amount: Number (amount)},
+            {name, amount: Number (amount), transactions: []},
           ],
-
-          // ...prevBudgetGroupValue[index].expenses,
-          // transactions: [
-          //   ...prevBudgetGroupValue[index].expenses,
-          //   { name: 'transaction 1', amount: 0 },
-          // ],
         },
         ...prevBudgetGroupValue.slice (index + 1),
       ];
@@ -266,8 +228,13 @@ function App () {
 
   const handleDeleteItem = (groupIndex, index) => {
     let newBudgetGroupValue = budgetGroupValue;
-    if(!newBudgetGroupValue[groupIndex]){
-      console.log('the delte item does not exist', groupIndex, index, newBudgetGroupValue)
+    if (!newBudgetGroupValue[groupIndex]) {
+      console.log (
+        'the delte item does not exist',
+        groupIndex,
+        index,
+        newBudgetGroupValue
+      );
       return;
     }
     newBudgetGroupValue[groupIndex].expenses.splice (index, 1);
@@ -275,12 +242,46 @@ function App () {
   };
 
   const groupDeleteHandler = index => {
-    const tempGroup = [...budgetGroupValue];
-    tempGroup.splice(index, 1);
-    setBudgetGroupValue(tempGroup);
+    budgetGroupValue.splice (index, 1);
+    setBudgetGroupValue ([...budgetGroupValue]);
   };
 
-  const toggleTractionList = (isShown, index, name, amount, groupIndex) => {
+  const toggleTractionList = (
+    isShown,
+    index,
+    name,
+    amount,
+    groupIndex,
+    anotherindex
+  ) => {
+    var mytransprop = 'transactions';
+
+    console.log (
+      'found teh infor in appsjs',
+      isShown,
+      index,
+      name,
+      amount,
+      groupIndex,
+      anotherindex
+    );
+    if (budgetGroupValue[groupIndex].expenses[index]) {
+      console.log (
+        'the item does exist in apps',
+        budgetGroupValue[groupIndex].expenses[index]
+      );
+    }
+    if (
+      budgetGroupValue[groupIndex].expenses[index].hasOwnProperty (mytransprop)
+    ) {
+      console.log ('the property exist ');
+    } else {
+      console.log (
+        'the property does not exist ',
+        budgetGroupValue[groupIndex].expenses
+      );
+    }
+
     setrowClickData ({
       [isShown]: isShown,
       itemIndex: index,
@@ -289,20 +290,6 @@ function App () {
 
     setshowBudgetGroupList (previousValue => !previousValue);
     setshowTractionList (previousValue => !previousValue);
-  };
-
-  const toggleList = (isShown, index, name, amount) => {
-    setrowClickData ({[isShown]: isShown, index: index});
-
-    setshowBudgetGroupList (false);
-    setshowTractionList (true);
-  };
-  const transactionTotal = index => {
-    var currentexpenses = budgetGroupValue[0].expenses[0].transactions;
-    return currentexpenses.reduce (
-      (totalIncome, currentIncome) => totalIncome + currentIncome.amount, // reducer function
-      0 // initial accumulator value
-    );
   };
 
   const handleTransactionDelete = (groupIndex, itemIndex, index, name) => {
@@ -315,22 +302,23 @@ function App () {
   };
 
   const clearBudget = () => {
-    setBudgetGroupValue([])
-    setincomes([])
-  }
+    setBudgetGroupValue ([]);
+    setincomes ([]);
+  };
 
-  // useEffect(() => {
-  //   if(budgetGroupValue.length < 1){
-  //     setshowBudgetGroupList(false)
-  //   }
-  //   return () => {
-  //     console.clear()
-  //   }
-  // }, [])
+  useEffect (
+    () => {
+      if (budgetGroupValue.length < 1) {
+        setshowBudgetGroupList (false);
+      }
+      return () => {};
+    },
+    [budgetGroupValue]
+  );
 
   const closeTour = () => {
-    setisTourOpen(false)
-  }
+    setisTourOpen (false);
+  };
 
   return (
     <div className="App">
@@ -340,7 +328,7 @@ function App () {
         changeIncome={handleChangeIncome}
         deleteIncome={handleDeleteIncome}
         clearBudget={clearBudget}
-
+        toggleHelp={toggleHelp}
       />
 
       <hr />
@@ -376,7 +364,7 @@ function App () {
             <hr />
             <div>
 
-              <div >
+              <div>
                 {budgetGroupValue.map ((budgetInfo, index) => (
                   <BudgetGroupList
                     key={budgetInfo.title}
@@ -402,12 +390,8 @@ function App () {
             />
           </div>}
       </div>
-      
 
-      <Tour
-        steps={steps}
-        isOpen={isTourOpen}
-        onRequestClose={closeTour} />
+      <Tour steps={steps} isOpen={isTourOpen} onRequestClose={closeTour} />
     </div>
   );
 }
