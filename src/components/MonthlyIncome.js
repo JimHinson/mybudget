@@ -13,31 +13,48 @@ function MonthlyIncome (props) {
   };
 
   const resetStyle = {
-    backgroundColor:'#333',
+    backgroundColor: '#333',
     marginRight: '80%',
-    color:'white',
-fontSize:'48px',
-fontWeight:'300',
-gap:'normal',
-lineHeight: '57.6px',
-margin:'0px 0px 4px',
-textAlign:'center',
-border: '5px solid white',
-borderRadius: '20px',
-marginBottom: '30px', 
-cursor:'pointer'
-  }
+    color: 'white',
+    fontSize: '48px',
+    fontWeight: '300',
+    gap: 'normal',
+    lineHeight: '57.6px',
+    margin: '0px 0px 4px',
+    textAlign: 'center',
+    border: '5px solid white',
+    borderRadius: '20px',
+    marginBottom: '30px',
+    cursor: 'pointer',
+  };
 
+  const helpStyle = {
+    fontSize: '28px',
+    fontWeight: '300',
+    lineHeight: '25.6px',
+    margin: '-90px 0px 4px 90%',
+    cursor: 'pointer',
+    textAlign: 'center',
+  };
 
   const margB = {
-marginTop: '30px', 
-  }
+    marginTop: '30px',
+  };
   return (
-
     <div className="top">
-      <div >
-         <button  style={resetStyle} onClick={props.clearBudget} color="youtube"> RESET</button>
-         </div>
+      <div>
+        <button
+          style={resetStyle}
+          onClick={props.clearBudget}
+          color="youtube"
+          data-tut="reactour__reset"
+        >
+          {' '}RESET
+        </button>
+      </div>
+      <div style={helpStyle} onClick={props.toggleHelp}>
+        {' '}<i className="plus icon" data-tut="reactour__help"> Help </i>{' '}
+      </div>
       <div className="budget" style={margB} data-tut="reactour__iso">
         <div className="budget__title">
           Available Budget in{' '}
@@ -46,13 +63,15 @@ marginTop: '30px',
         <div className="budget__value">+{props.finalTotal ()}</div>
         <ul className="striped-listIncome">
           {props.incomes.map ((income, index) => (
-           <li key={index}> <IncomeStream
-              key={income.paycheck}
-              amount={income.amount}
-              paycheck={income.paycheck}
-              index={index}
-              deleteIncome={handleIncomeDelete}
-            />
+            <li key={index}>
+              {' '}
+              <IncomeStream
+                key={income.paycheck}
+                amount={income.amount}
+                paycheck={income.paycheck}
+                index={index}
+                deleteIncome={handleIncomeDelete}
+              />
             </li>
           ))}
         </ul>

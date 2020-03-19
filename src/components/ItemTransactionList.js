@@ -2,7 +2,8 @@ import React, {useEffect} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
 import AddTransaction from '../components/AddTransaction';
-import { Button, Divider } from 'semantic-ui-react';
+import {Button} from 'semantic-ui-react';
+import useComponentVisible from '../components/VisibleHook'
 
 function ItemTransactionList (props) {
   const expenseStyle = {
@@ -33,29 +34,39 @@ function ItemTransactionList (props) {
     );
   };
 
-  const handleDelete = (index, name) => {
-    console.log (index, 'I clicked delete transaction', name);
-  };
+  useEffect (
+    () => {
+      console.log (
+        'Im in the transaction list',
+        props.budgetGroupValue,
+        'check this out itl',
+        props.rowValue
+      );
+      if (props.rowValue.itemIndex === undefined) {
+        console.log ('itl, index doenst exist ', props.rowValue);
+        return;
+      }
+      if (props.rowValue.groupIndex === undefined) {
+        console.log ('itl groupindex doesnt exist ', props.rowValue);
+        return;
+      }
+      if (props.budgetGroupValue.length < 1) {
+        console.log ('exist no items exist', props.rowValue);
+        return;
+      }
+      return () => {};
+    },
+    [props.budgetGroupValue, props.rowValue]
+  );
 
-  useEffect (() => {
-    if (!props.rowValue.itemIndex) {
-      console.log('rowbalue not ', props.rowValue)
-      return;
-    };
-    if (!props.rowValue.groupIndex) {
-      console.log('rowbalue not22 ', props.rowValue)
-      return;
-    };
-    if(props.budgetGroupValue[props.rowValue.groupIndex].expenses.length > 0){
-      console.log('rowbalue not333 ', props.rowValue)
-      return;
-    }
-    return () => {};
-  }, [props.budgetGroupValue]);
-
+  
   return (
-    <div>
-      <div data-tut="reactour__transactionContainer" className="col transctioncol" style={cardStyle}>
+    <div >
+      <div
+        data-tut="reactour__transactionContainer"
+        className="col transctioncol"
+        style={cardStyle}
+      >
         <div className="budget__income1 clearfix ui dividing header">
           <hr />
           <div className="budget__income--value bold">Transactions</div>
@@ -66,59 +77,56 @@ function ItemTransactionList (props) {
           {/* <Divider/> */}
         </div>
         <hr />
-        <div> 
-      {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
-              props.rowValue.itemIndex
-            ] ? 
-          <div>
-            {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
-              props.rowValue.itemIndex
-            ].transactions.map ((transaction, index) => (
-              <div className="budget__income1 " key={index}>
-                <hr />
-                <div className="budget__income--value">
-                  {transaction.name.toUpperCase ()}
-                </div>
-                <div className="right">
-                  <div className="budget__income--value">
-                    {transaction.amount}
+        <div>
+          {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
+            props.rowValue.itemIndex]
+            ? (<div>
+                {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
+                  props.rowValue.itemIndex
+                ].transactions.map ((transaction, index) => (
+                  <div className="budget__income1 " key={index}>
+                    <hr />
+                    <div className="budget__income--value">
+                      {transaction.name.toUpperCase ()}
+                    </div>
+                    <div className="right">
+                      <div className="budget__income--value">
+                        {transaction.amount}
+                      </div>
+                      <div className="budget__income--percentage">&nbsp;</div>
+                    </div>
+
+                    <Button
+                      color="youtube"
+                      index={props.index}
+                      className="white "
+                      onClick={() =>
+                        props.handleTransactionDelete (
+                          props.rowValue.groupIndex,
+                          props.rowValue.itemIndex,
+                          index,
+                          transaction.name
+                        )}
+                    >
+                      Delete
+                    </Button>
                   </div>
-                  <div className="budget__income--percentage">&nbsp;</div>
+                ))}
+
+                <div className="ui large label">
+                  Add A Transaction
+                  <AddTransaction
+                    handleTransactionSubmit={props.handleTransactionSubmit}
+                    rowValue={props.rowValue}
+                    budgetData={props.budgetGroupValue}
+                  />
                 </div>
+                <div style={expenseStyle}>
+                  Total: {transactionTotal (props.rowValue.index)}{' '}
+                </div>
+              </div> )
+            : (<div> Add Transactions to your Expenses</div>)}
 
-                <Button
-                
-                color='youtube'
-                  index={props.index}
-                  className="white "
-                  onClick={() =>
-                    props.handleTransactionDelete (
-                      props.rowValue.groupIndex,
-                      props.rowValue.itemIndex,
-                      index,
-                      transaction.name
-                    )}
-                >
-                  Delete
-                </Button>
-              </div>
-            ))}
-
-            <div className="ui large label">
-              Add A Transaction
-              <AddTransaction
-                handleTransactionSubmit={props.handleTransactionSubmit}
-              />
-            </div>
-            <div style={expenseStyle}>
-              Total: {transactionTotal (props.rowValue.index)}{' '}
-            </div>
-          </div>
-
-          : 
-          <div> Add Expenses to see transactions</div>
-    }
-         
         </div>
       </div>
 

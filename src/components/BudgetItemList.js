@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
-import { Button, Divider, Form, Input } from "semantic-ui-react";
-import "semantic-ui-css/semantic.min.css";
+import {Button} from 'semantic-ui-react';
+import 'semantic-ui-css/semantic.min.css';
 
 function BudgetItemList (props) {
   const [isShown, setIsShown] = useState (false);
@@ -11,7 +11,6 @@ function BudgetItemList (props) {
     fontSize: '18px',
     textAlign: 'center',
   };
-  
 
   const handleDelete = () => {
     props.deleteItem (props.index);
@@ -44,25 +43,31 @@ function BudgetItemList (props) {
   };
 
   return (
-    <div >
+    <div>
       <hr />
-      <div data-tut="reactour__transactionList" className="flex-containerExpense" onClick={handleClickHandler}>
+      <div
+        data-tut="reactour__transactionList"
+        className="flex-containerExpense"
+        onClick={handleClickHandler}
+      >
         <div className=" flex-itemExpense " style={liStyle}>
           {props.name}
         </div>
         <div className="flex-itemExpense " style={liStyle}>
           {props.amount}
         </div>
-        <div className="flex-itemExpense " style={liStyle}>{plannedMinusRemaining ()}</div>
+        <div className="flex-itemExpense " style={liStyle}>
+          {plannedMinusRemaining ()}
+        </div>
         <Button
           index={props.index}
-          className="myBtn deleteBtn flex-itemExpense" style={liStyle}
+          className="myBtn deleteBtn flex-itemExpense"
+          style={liStyle}
           onClick={handleDelete}
         >
           Delete
         </Button>
 
-    
       </div>
     </div>
   );
