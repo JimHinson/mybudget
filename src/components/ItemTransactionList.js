@@ -3,6 +3,7 @@ import '../styles/monthly.css';
 import '../styles/App.css';
 import AddTransaction from '../components/AddTransaction';
 import {Button} from 'semantic-ui-react';
+import useComponentVisible from '../components/VisibleHook'
 
 function ItemTransactionList (props) {
   const expenseStyle = {
@@ -55,11 +56,12 @@ function ItemTransactionList (props) {
       }
       return () => {};
     },
-    [props.budgetGroupValue]
+    [props.budgetGroupValue, props.rowValue]
   );
 
+  
   return (
-    <div>
+    <div >
       <div
         data-tut="reactour__transactionContainer"
         className="col transctioncol"
@@ -77,9 +79,8 @@ function ItemTransactionList (props) {
         <hr />
         <div>
           {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
-            props.rowValue.itemIndex
-          ]
-            ? <div>
+            props.rowValue.itemIndex]
+            ? (<div>
                 {props.budgetGroupValue[props.rowValue.groupIndex].expenses[
                   props.rowValue.itemIndex
                 ].transactions.map ((transaction, index) => (
@@ -123,8 +124,8 @@ function ItemTransactionList (props) {
                 <div style={expenseStyle}>
                   Total: {transactionTotal (props.rowValue.index)}{' '}
                 </div>
-              </div>
-            : <div> Add Transactions to your Expenses</div>}
+              </div> )
+            : (<div> Add Transactions to your Expenses</div>)}
 
         </div>
       </div>

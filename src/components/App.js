@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import '../styles/App.css';
 import MonthlyIncome from './MonthlyIncome';
 import BudgetGroupContainer from './BudgetGroupContainer';
@@ -7,34 +7,114 @@ import ItemTransactionList from './ItemTransactionList';
 import 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import Tour from 'reactour';
+import  useComponentVisible from '../components/VisibleHook'
+import ShowBugetList from './ShowBugetList'
+import ShowTransactionList from './ShowTransactionList'
+
 
 function App () {
   const [steps] = useState ([
     {
       selector: '[data-tut="reactour__iso"]',
-      content: `This is where you can add you paychecks or investments, simply add a paycheck to get started.`,
+      content: () => (
+        <div>
+         <h1>Add Paycheck</h1>
+        <p>
+          Every budget needs input and output. This is where you can add you paychecks (input) or investments, simply enter the name of the paycheck source and an amount to get started.,
+          </p>
+        </div>
+      ),
+      // content: `This is where you can add you paychecks or investments, simply add a paycheck to get started.`,
+      stepInteraction: true,
+      action: node => {
+        // by using this, focus trap is temporary disabled
+        node.focus()
+        // console.log('yup, the target element is also focused!')
+        // setshowbugetcontainer(true)
+      }
     },
 
     {
       selector: '[data-tut="reactour__itemList"]',
-      content: `This container will contain your budget groups and you expenses for the group…`,
+      content: () => (
+        <div>
+         <h1>Add Budget Category</h1>
+        <p>
+          Add a budget category (Food, Vacation, Savings, Home Repairs) to get started
+          </p>
+        </div>
+      ),
+      stepInteraction: true,
+      action: node => {
+        // by using this, focus trap is temporary disabled
+        // node.focus()
+        // console.log('yup, the target element is also focused!')
+        // setshowbugetcontainer(true)
+      }
     },
 
     {
       selector: '[data-tut="reactour__transactionList"]',
-      content: 'Each budget group has expenses, click on the row of the expense to see the transaction for that expense…',
+      content: () => (
+        <div>
+         <h1>Add A Budget Expense </h1>
+        <p>
+          Add a budget item to start tracking your expenses for the category(Food category may have a groceries or restaurant expense) 
+          </p>
+        </div>
+      ),
+      stepInteraction: true,
+      action: node => {
+        // by using this, focus trap is temporary disabled
+        // node.focus()
+        // console.log('yup, the target element is also focused!')
+        // setshowbugetcontainer(true)
+      }
+      // content: 'Each budget group has expenses, click on the row of the expense to see the transaction for that expense…',
     },
     {
-      selector: '[data-tut="reactour__logo"]',
-      content: `Simply add a budget group to get started, Food is a good group to start with`,
+      selector: '[data-tut="reactour__transactionList"]',
+      content: () => (
+        <div>
+         <h1>Click on the row </h1>
+        <p>
+         Click on the row(or text) to view transactions for the expense
+          </p>
+          <img src='https://cdn.pixabay.com/photo/2012/04/24/11/28/arrow-39450_1280.png' width="200" height="100"/>
+        </div>
+      ),
+      stepInteraction: true,
+      action: node => {
+        // by using this, focus trap is temporary disabled
+        // node.focus()
+        // console.log('yup, the target element is also focused!')
+        // setshowbugetcontainer(true)
+      }
+      // content: `Simply add a budget group to get started, Food is a good group to start with`,
     },
     {
       selector: '[data-tut="reactour__transactionContainer"]',
-      content: 'This area will either be a list of transaction or budget group list…',
+      content: () => (
+        <div>
+         <h1>Transactions List</h1>
+        <p>
+         You can always see transactions for an expense by clicking on the row.
+         Add transaction (Food Category has a grocey expensea and may have a tractions for Walmart for $50)
+          </p>
+        </div>
+      ),
+      stepInteraction: true,
+      action: node => {
+        // by using this, focus trap is temporary disabled
+        // node.focus()
+        // console.log('yup, the target element is also focused!')
+        // setshowbugetcontainer(true)
+      }
+      // content: 'This area will either be a list of transaction or budget group list…',
     },
     {
       selector: '[data-tut="reactour__deleteGroup"]',
-      content: 'You can delete a budget group',
+      content: 'You can delete a budget',
     },
     {
       selector: '[data-tut="reactour__reset"]',
@@ -46,10 +126,12 @@ function App () {
     },
   ]);
 
-  const [isTourOpen, setisTourOpen] = useState (true);
-
-  const [incomes, setincomes] = useState ([
-    {paycheck: 'PayCheck#1', amount: 500},
+  const [isTourOpen, setisTourOpen] = useState (false);
+ const [showbugetcontainer, setshowbugetcontainer] = useState(true)
+ const [showresetandhelp, setshowresetandhelp] = useState(false)
+  
+ const [incomes, setincomes] = useState ([
+    // {paycheck: 'PayCheck#1', amount: 500},
   ]);
   const [budgetGroupValue, setBudgetGroupValue] = useState ([
     {
@@ -90,41 +172,41 @@ function App () {
         },
       ],
     },
-    // {
-    //   title: 'Car Maintainance',
-    //   expenses: [
-    //     {
-    //
-    //       name: 'Car repair ',
-    //       amount: 200,
-    //       transactions: [
-    //         {
-    //           name: 'tires',
-    //           amount: 40,
-    //         },
-    //         {
-    //           name: 'oil change',
-    //           amount: 50,
-    //         },
-    //       ],
-    //     },
+    // // {
+    // //   title: 'Car Maintainance',
+    // //   expenses: [
+    // //     {
+    // //
+    // //       name: 'Car repair ',
+    // //       amount: 200,
+    // //       transactions: [
+    // //         {
+    // //           name: 'tires',
+    // //           amount: 40,
+    // //         },
+    // //         {
+    // //           name: 'oil change',
+    // //           amount: 50,
+    // //         },
+    // //       ],
+    // //     },
 
-    //     {
-    //       name: 'Alternator',
-    //       amount: 70,
-    //       transactions: [
-    //         {
-    //           name: 'Part',
-    //           amount: 30,
-    //         },
-    //         {
-    //           name: 'Labor',
-    //           amount: 20,
-    //         },
-    //       ],
-    //     },
-    //   ],
-    // },
+    // //     {
+    // //       name: 'Alternator',
+    // //       amount: 70,
+    // //       transactions: [
+    // //         {
+    // //           name: 'Part',
+    // //           amount: 30,
+    // //         },
+    // //         {
+    // //           name: 'Labor',
+    // //           amount: 20,
+    // //         },
+    // //       ],
+    // //     },
+    // //   ],
+    // // },
   ]);
   const [showTractionList, setshowTractionList] = useState (false);
   const [showBudgetGroupList, setshowBudgetGroupList] = useState (true);
@@ -220,8 +302,9 @@ function App () {
       ...budgetGroupValue,
       {
         title: name,
-        totolAmount: 0,
-        expenses: [],
+        expenses: [
+          
+        ],
       },
     ]);
   };
@@ -254,7 +337,7 @@ function App () {
     groupIndex,
     anotherindex
   ) => {
-    var mytransprop = 'transactions';
+    // var mytransprop = 'transactions';
 
     console.log (
       'found teh infor in appsjs',
@@ -271,11 +354,7 @@ function App () {
         budgetGroupValue[groupIndex].expenses[index]
       );
     }
-    if (
-      budgetGroupValue[groupIndex].expenses[index].hasOwnProperty (mytransprop)
-    ) {
-      console.log ('the property exist ');
-    } else {
+    else {
       console.log (
         'the property does not exist ',
         budgetGroupValue[groupIndex].expenses
@@ -306,19 +385,34 @@ function App () {
     setincomes ([]);
   };
 
-  useEffect (
-    () => {
-      if (budgetGroupValue.length < 1) {
-        setshowBudgetGroupList (false);
-      }
-      return () => {};
-    },
-    [budgetGroupValue]
-  );
+  // useEffect (
+  //   () => {
+  //     if (budgetGroupValue.length < 1) {
+  //       setshowBudgetGroupList (false);
+  //     }
+  //     return () => {};
+  //   },
+  //   [budgetGroupValue]
+  // );
 
   const closeTour = () => {
     setisTourOpen (false);
   };
+
+  const handleSteps = (currentStep) => {
+      console.log('steps what', currentStep)
+      // setisTourOpen (false);
+    if(currentStep === 2){
+      console.log('steps is 2', currentStep)
+        setshowbugetcontainer(true)
+
+    }
+  };
+
+  const { ref,
+    isComponentVisible,
+    setIsComponentVisible } = useComponentVisible(true);
+
 
   return (
     <div className="App">
@@ -332,6 +426,8 @@ function App () {
       />
 
       <hr />
+
+      {showbugetcontainer && (
       <div className="flex-grid">
         <div className="col major">
           <BudgetGroupContainer
@@ -345,53 +441,23 @@ function App () {
         </div>
 
         {/* { budget percentage section} */}
-        {showBudgetGroupList &&
-          <div className="col down1" data-tut="reactour__transactionContainer">
-            <div style={circleStyle}>
-              <span style={center}>
-                <b>Income</b> ${finalTotal ()}
-              </span>
-            </div>
+      
+        {showBudgetGroupList && (
+    
+          <ShowBugetList budgetGroupValue={budgetGroupValue} finalTotal={finalTotal}/>
+      )}
 
-            <div className="budget__income1 clearfix">
-              <hr />
-              <div className="budget__income--text">Expense</div>
-              <div className="right">
-                <div className="budget__income--value">Planned</div>
-                <div className="budget__income--percentage">&nbsp;</div>
-              </div>
-            </div>
-            <hr />
-            <div>
 
-              <div>
-                {budgetGroupValue.map ((budgetInfo, index) => (
-                  <BudgetGroupList
-                    key={budgetInfo.title}
-                    budgetData={budgetInfo}
-                    finalAmountForGroup={finalTotal}
-                    index={index}
-                    totalBudget={finalTotal}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>}
-        {showTractionList &&
-          <div style={transactionStyle}>
-            <ItemTransactionList
-              handleTransactionDelete={handleTransactionDelete}
-              budgetGroupValue={budgetGroupValue}
-              rowValue={{
-                itemIndex: rowClickData.itemIndex,
-                groupIndex: rowClickData.groupIndex,
-              }}
-              handleTransactionSubmit={handleTransactionSubmit}
-            />
-          </div>}
-      </div>
+      {showTractionList && (
+        <ShowTransactionList handleTransactionDelete={handleTransactionDelete} handleTransactionSubmit={handleTransactionSubmit} budgetGroupValue={budgetGroupValue} rowClickData={rowClickData}/>
+      
+      )}
+       
+     
+        </div>
+      )}
 
-      <Tour steps={steps} isOpen={isTourOpen} onRequestClose={closeTour} />
+      <Tour steps={steps} isOpen={isTourOpen} onRequestClose={closeTour} getCurrentStep={curr => handleSteps(curr + 1)} />
     </div>
   );
 }

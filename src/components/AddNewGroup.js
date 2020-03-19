@@ -13,6 +13,12 @@ function AddNewGroup (props) {
     setname ('');
   };
 
+  const border = {
+    border: 'solid 2px black', 
+    borderRadius: '9px',
+  }
+
+  
   return (
     <form onSubmit={handleSubmit}>
       <div data-tut="reactour__logo">
@@ -23,6 +29,7 @@ function AddNewGroup (props) {
           value={name}
           onChange={e => setname (e.target.value)}
           placeholder="Add Budget Category"
+          style={border}
         />
 
         <Button type="submit" primary className="myBtn">

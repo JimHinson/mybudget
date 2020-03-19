@@ -14,6 +14,11 @@ function BudgetGroupContainer (props) {
     marginTop: '10px',
   };
 
+  const spacing = {
+    marginTop: '10px',
+    marginBottom: '30px',
+    
+  }
   const handleFormSubmit = (name, amount, index) => {
     props.handleSubmit (name, amount, index);
   };
@@ -47,7 +52,7 @@ function BudgetGroupContainer (props) {
       {props.budgetGroupValue.map ((budgetObject, index) => (
         <div key={index}>
           <div>
-            <div>
+            <div style={spacing}>
               <Button
                 data-tut="reactour__deleteGroup"
                 index={index}

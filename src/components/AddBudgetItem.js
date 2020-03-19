@@ -15,12 +15,19 @@ function AddBudgetItem (props) {
     props.handleSubmit (budgetItem, amount);
   };
 
+  const border = {
+    border: 'solid 2px black', 
+    borderRadius: '9px',
+  }
+
+
   return (
-    <form onSubmit={handleSubmit} className="formBody">
+    <form onSubmit={handleSubmit} className="formBody" data-tut="reactour__transactionList">
       <Input
         type="text"
         id="budgetItem"
         className="input"
+        style={border}
         value={budgetItem}
         onChange={e => setbudgetItem (e.target.value)}
         placeholder="budget item"
@@ -31,6 +38,7 @@ function AddBudgetItem (props) {
         type="text"
         id="amount"
         className="input"
+        style={border}
         value={amount}
         onChange={e => setamount (e.target.value)}
         placeholder="amount"

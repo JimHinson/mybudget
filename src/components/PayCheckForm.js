@@ -34,6 +34,7 @@ function PayCheckForm (props) {
         onChange={e => setamount (e.target.value)}
         placeholder="paycheckAmount"
         icon='dollar sign' iconPosition='left'
+        Size='large'
       />
       <Button type="submit" className="primary">
         Submit
