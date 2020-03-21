@@ -24,10 +24,7 @@ function App () {
       // content: `This is where you can add you paychecks or investments, simply add a paycheck to get started.`,
       stepInteraction: true,
       action: node => {
-        // by using this, focus trap is temporary disabled
         node.focus()
-        // console.log('yup, the target element is also focused!')
-        // setshowbugetcontainer(true)
       }
     },
 
@@ -43,10 +40,7 @@ function App () {
       ),
       stepInteraction: true,
       action: node => {
-        // by using this, focus trap is temporary disabled
         // node.focus()
-        // console.log('yup, the target element is also focused!')
-        // setshowbugetcontainer(true)
       }
     },
 
@@ -62,10 +56,7 @@ function App () {
       ),
       stepInteraction: true,
       action: node => {
-        // by using this, focus trap is temporary disabled
         // node.focus()
-        // console.log('yup, the target element is also focused!')
-        // setshowbugetcontainer(true)
       }
       // content: 'Each budget group has expenses, click on the row of the expense to see the transaction for that expense…',
     },
@@ -82,10 +73,7 @@ function App () {
       ),
       stepInteraction: true,
       action: node => {
-        // by using this, focus trap is temporary disabled
         // node.focus()
-        // console.log('yup, the target element is also focused!')
-        // setshowbugetcontainer(true)
       }
       // content: `Simply add a budget group to get started, Food is a good group to start with`,
     },
@@ -102,10 +90,7 @@ function App () {
       ),
       stepInteraction: true,
       action: node => {
-        // by using this, focus trap is temporary disabled
         // node.focus()
-        // console.log('yup, the target element is also focused!')
-        // setshowbugetcontainer(true)
       }
       // content: 'This area will either be a list of transaction or budget group list…',
     },
@@ -142,30 +127,7 @@ function App () {
               amount: 70,
             },
           ],
-        },
-
-        {
-          id: 1,
-          name: 'Restaurant',
-          amount: 60,
-          transactions: [
-            {
-              name: 'Burger King',
-              amount: 10,
-            },
-          ],
-        },
-        {
-          id: 2,
-          name: 'Snacks',
-          amount: 20,
-          transactions: [
-            {
-              name: 'Gas Station',
-              amount: 5,
-            },
-          ],
-        },
+        }
       ],
     },
   
@@ -241,9 +203,7 @@ function App () {
       ...budgetGroupValue,
       {
         title: name,
-        expenses: [
-          
-        ],
+        expenses: [],
       },
     ]);
   };
@@ -276,7 +236,6 @@ function App () {
     groupIndex,
     anotherindex
   ) => {
-    // var mytransprop = 'transactions';
 
     console.log (
       'found teh infor in appsjs',
@@ -324,23 +283,12 @@ function App () {
     setincomes ([]);
   };
 
-  // useEffect (
-  //   () => {
-  //     if (budgetGroupValue.length < 1) {
-  //       setshowBudgetGroupList (false);
-  //     }
-  //     return () => {};
-  //   },
-  //   [budgetGroupValue]
-  // );
-
   const closeTour = () => {
     setisTourOpen (false);
   };
 
   const handleSteps = (currentStep) => {
       console.log('steps what', currentStep)
-      // setisTourOpen (false);
     if(currentStep === 2){
       console.log('steps is 2', currentStep)
         setshowbugetcontainer(true)
