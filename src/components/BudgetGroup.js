@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
 import 'semantic-ui-react';
@@ -8,13 +8,19 @@ import BudgetItemList from './BudgetItemList';
 
 function BudgetGroup (props) {
   const cHeader = {
-    color: '#111',
+    // color: '#111',
+    color: '#fffffff2',
     fontFamily: 'Helvetica Neue',
     fontSize: ' 25px',
     fontWeight: 'bold',
     letterSpacing: '-1px',
     lineHeight: '1',
     textAlign: 'center',
+    marginTop: '16px',
+    border: '4px solid white',
+    borderRadius: '90px',
+    backgroundColor: '#475245',
+    
   };
   const divStyle = {
     margin: '10px',
@@ -37,6 +43,9 @@ function BudgetGroup (props) {
     border: '2px solid black',
     marginBotton: '20px',
   };
+  const spacingStyle = {
+    paddingLeft: '10px',
+  }
 
   const handleFormSubmit = (name, amount, index) => {
     props.handleSubmit (name, amount, props.index);
@@ -75,9 +84,8 @@ function BudgetGroup (props) {
           <div className="budget__v" />
           <ul>
             <li>
-              <h1 style={cHeader}>
-
-                {props.budgetData.title} ${budgetGroupTotal ()}
+              <h1 style={cHeader} className='ui header'>
+                {props.budgetData.title} <span style={spacingStyle}></span>  ${budgetGroupTotal ()}
               </h1>
               <ul style={divStyle} className="striped-list">
 

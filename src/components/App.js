@@ -1,13 +1,10 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState} from 'react';
 import '../styles/App.css';
 import MonthlyIncome from './MonthlyIncome';
 import BudgetGroupContainer from './BudgetGroupContainer';
-import BudgetGroupList from './BudgetGroupList';
-import ItemTransactionList from './ItemTransactionList';
 import 'semantic-ui-react';
 import 'semantic-ui-css/semantic.min.css';
 import Tour from 'reactour';
-import  useComponentVisible from '../components/VisibleHook'
 import ShowBugetList from './ShowBugetList'
 import ShowTransactionList from './ShowTransactionList'
 
@@ -80,7 +77,7 @@ function App () {
         <p>
          Click on the row(or text) to view transactions for the expense
           </p>
-          <img src='https://cdn.pixabay.com/photo/2012/04/24/11/28/arrow-39450_1280.png' width="200" height="100"/>
+          <img alt="downArrow" src='https://cdn.pixabay.com/photo/2012/04/24/11/28/arrow-39450_1280.png' width="200" height="100"/>
         </div>
       ),
       stepInteraction: true,
@@ -126,12 +123,11 @@ function App () {
     },
   ]);
 
-  const [isTourOpen, setisTourOpen] = useState (false);
+  const [isTourOpen, setisTourOpen] = useState (true);
  const [showbugetcontainer, setshowbugetcontainer] = useState(true)
- const [showresetandhelp, setshowresetandhelp] = useState(false)
   
  const [incomes, setincomes] = useState ([
-    // {paycheck: 'PayCheck#1', amount: 500},
+     {paycheck: 'PayCheck#1', amount: 1500},
   ]);
   const [budgetGroupValue, setBudgetGroupValue] = useState ([
     {
@@ -139,11 +135,11 @@ function App () {
       expenses: [
         {
           name: 'Groceries',
-          amount: 300,
+          amount: 280,
           transactions: [
             {
               name: 'Walmart',
-              amount: 40,
+              amount: 70,
             },
           ],
         },
@@ -151,7 +147,7 @@ function App () {
         {
           id: 1,
           name: 'Restaurant',
-          amount: 150,
+          amount: 60,
           transactions: [
             {
               name: 'Burger King',
@@ -162,7 +158,7 @@ function App () {
         {
           id: 2,
           name: 'Snacks',
-          amount: 10,
+          amount: 20,
           transactions: [
             {
               name: 'Gas Station',
@@ -172,68 +168,11 @@ function App () {
         },
       ],
     },
-    // // {
-    // //   title: 'Car Maintainance',
-    // //   expenses: [
-    // //     {
-    // //
-    // //       name: 'Car repair ',
-    // //       amount: 200,
-    // //       transactions: [
-    // //         {
-    // //           name: 'tires',
-    // //           amount: 40,
-    // //         },
-    // //         {
-    // //           name: 'oil change',
-    // //           amount: 50,
-    // //         },
-    // //       ],
-    // //     },
-
-    // //     {
-    // //       name: 'Alternator',
-    // //       amount: 70,
-    // //       transactions: [
-    // //         {
-    // //           name: 'Part',
-    // //           amount: 30,
-    // //         },
-    // //         {
-    // //           name: 'Labor',
-    // //           amount: 20,
-    // //         },
-    // //       ],
-    // //     },
-    // //   ],
-    // // },
+  
   ]);
   const [showTractionList, setshowTractionList] = useState (false);
   const [showBudgetGroupList, setshowBudgetGroupList] = useState (true);
   const [rowClickData, setrowClickData] = useState ();
-
-  const transactionStyle = {
-    marginTop: '230px',
-  };
-  const center = {
-    margin: 'auto',
-    textAlign: 'center',
-    width: '100%',
-    borderRadius: '60%',
-    fontSize: '49px',
-    padding: '100% 5%',
-    lineHeight: '1.8',
-    position: 'relative',
-  };
-  const circleStyle = {
-    height: '225px',
-    width: '225px',
-    backgroundColor: 'white',
-    borderRadius: '50%',
-    display: 'inline-block',
-    border: '5px solid black',
-    marginBottom: '30px',
-  };
 
   const toggleHelp = () => {
     setisTourOpen (!isTourOpen);
@@ -408,10 +347,6 @@ function App () {
 
     }
   };
-
-  const { ref,
-    isComponentVisible,
-    setIsComponentVisible } = useComponentVisible(true);
 
 
   return (

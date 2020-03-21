@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {} from 'react';
 import '../styles/monthly.css';
 import '../styles/App.css';
 import BudgetGroup from './BudgetGroup';
