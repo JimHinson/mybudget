@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import '../styles/monthly.css';
 import { Button,  Input } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
@@ -14,6 +14,9 @@ function PayCheckForm (props) {
     props.handleSubmit (paycheck, amount);
   };
 
+  const payInputStyle = {
+    width: '100px'
+  }
   return (
     <form onSubmit={handleSubmit}>
       <Input
@@ -24,6 +27,7 @@ function PayCheckForm (props) {
         value={paycheck}
         onChange={e => setpaycheck (e.target.value)}
         placeholder="Add A Paycheck"
+        required
       />
 
       <Input
@@ -34,7 +38,9 @@ function PayCheckForm (props) {
         onChange={e => setamount (e.target.value)}
         placeholder="paycheckAmount"
         icon='dollar sign' iconPosition='left'
-        Size='large'
+        size='large'
+        style={payInputStyle}
+        required
       />
       <Button type="submit" className="primary">
         Submit

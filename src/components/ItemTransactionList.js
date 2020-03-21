@@ -3,7 +3,6 @@ import '../styles/monthly.css';
 import '../styles/App.css';
 import AddTransaction from '../components/AddTransaction';
 import {Button} from 'semantic-ui-react';
-import useComponentVisible from '../components/VisibleHook'
 
 function ItemTransactionList (props) {
   const expenseStyle = {

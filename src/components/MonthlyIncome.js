@@ -20,7 +20,7 @@ function MonthlyIncome (props) {
     fontWeight: '300',
     gap: 'normal',
     lineHeight: '57.6px',
-    margin: '0px 0px 4px',
+    margin: '30px 0px 4px',
     textAlign: 'center',
     border: '5px solid white',
     borderRadius: '20px',

@@ -17,7 +17,7 @@ function ShowBudgetList (props) {
         // marginTop: '20px', 
         float: 'left',
         clear: 'left',
-        fontSize: '30px',
+        fontSize: '40px',
         position: 'relative',
       };
       const circleStyle = {
@@ -34,19 +34,33 @@ function ShowBudgetList (props) {
       const BGLStyle = {
         marginRight: '2%',
       };
-      const down = {
-        marginTop: '20px',
-      };
+ 
+      const spanDivStyle = {
+        margin: '54px auto 87px 34px',
+        lineHeight: '54px',
+        /* margin-left: 57px, */
+        textAlign: 'center',
+        // marginLeft: '39px',
+        fontSize: '50px',
+        fontWeight: 'bold',
+      }
+
+
+
 return ( 
 
           <div className="col down1" style={BGLStyle} data-tut="reactour__transactionContainer">
             <div style={circleStyle}>
-              <span style={spanStyle}>
+              <div style={spanDivStyle}>
+
+                 <span style={spanStyle}>
                 <b>Income</b>
               </span>
               <span style={spanStyle}>
                 ${props.finalTotal ()}
               </span> 
+              </div>
+             
             </div>
 
             <div className="budget__income1 clearfix">
