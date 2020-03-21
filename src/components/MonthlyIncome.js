@@ -16,15 +16,15 @@ function MonthlyIncome (props) {
     backgroundColor: '#333',
     marginRight: '80%',
     color: 'white',
-    fontSize: '48px',
+    fontSize: '28px',
     fontWeight: '300',
     gap: 'normal',
-    lineHeight: '57.6px',
+    lineHeight: '24.6px',
     margin: '30px 0px 4px',
     textAlign: 'center',
     border: '5px solid white',
     borderRadius: '20px',
-    marginBottom: '0px',
+    marginBottom: '-3px',
     cursor: 'pointer',
   };
 
