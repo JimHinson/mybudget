@@ -24,7 +24,7 @@ function MonthlyIncome (props) {
     textAlign: 'center',
     border: '5px solid white',
     borderRadius: '20px',
-    marginBottom: '30px',
+    marginBottom: '0px',
     cursor: 'pointer',
   };
 
